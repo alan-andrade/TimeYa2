@@ -14,14 +14,18 @@
 		4C7F56AE1846E2BB00D4CCA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C7F56AC1846E2BB00D4CCA7 /* InfoPlist.strings */; };
 		4C7F56B01846E2BB00D4CCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56AF1846E2BB00D4CCA7 /* main.m */; };
 		4C7F56B41846E2BB00D4CCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56B31846E2BB00D4CCA7 /* AppDelegate.m */; };
-		4C7F56B71846E2BB00D4CCA7 /* TimeYa2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56B51846E2BB00D4CCA7 /* TimeYa2.xcdatamodeld */; };
 		4C7F56B91846E2BB00D4CCA7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C7F56B81846E2BB00D4CCA7 /* Images.xcassets */; };
-		4C7F56C01846E2BB00D4CCA7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F56BF1846E2BB00D4CCA7 /* XCTest.framework */; };
 		4C7F56C11846E2BB00D4CCA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F56A11846E2BB00D4CCA7 /* Foundation.framework */; };
 		4C7F56C21846E2BB00D4CCA7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F56A51846E2BB00D4CCA7 /* UIKit.framework */; };
 		4C7F56C31846E2BB00D4CCA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F56A71846E2BB00D4CCA7 /* CoreData.framework */; };
 		4C7F56CB1846E2BB00D4CCA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C7F56C91846E2BB00D4CCA7 /* InfoPlist.strings */; };
-		4C7F56CD1846E2BB00D4CCA7 /* TimeYa2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56CC1846E2BB00D4CCA7 /* TimeYa2Tests.m */; };
+		4C7F56DB1846E2F800D4CCA7 /* TimeYa2.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */; };
+		4C7F56DC1846E2F800D4CCA7 /* TimeYa2.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */; };
+		4C7F56DD1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */; };
+		4C7F56DE1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */; };
+		4C7F56E11846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */; };
+		4CDBC93A1846E55F00623E73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDBC9391846E55F00623E73 /* XCTest.framework */; };
+		4CDBC9861846E75300623E73 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDBC9841846E72C00623E73 /* libOCMock.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,13 +50,25 @@
 		4C7F56B11846E2BB00D4CCA7 /* TimeYa2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeYa2-Prefix.pch"; sourceTree = "<group>"; };
 		4C7F56B21846E2BB00D4CCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C7F56B31846E2BB00D4CCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4C7F56B61846E2BB00D4CCA7 /* TimeYa2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeYa2.xcdatamodel; sourceTree = "<group>"; };
 		4C7F56B81846E2BB00D4CCA7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4C7F56BE1846E2BB00D4CCA7 /* TimeYa2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeYa2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C7F56BF1846E2BB00D4CCA7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		4C7F56C81846E2BB00D4CCA7 /* TimeYa2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeYa2Tests-Info.plist"; sourceTree = "<group>"; };
 		4C7F56CA1846E2BB00D4CCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4C7F56CC1846E2BB00D4CCA7 /* TimeYa2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeYa2Tests.m; sourceTree = "<group>"; };
+		4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeYa2.xcdatamodel; sourceTree = "<group>"; };
+		4C7F56D81846E2F800D4CCA7 /* CoreDataDocumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDocumentHandler.h; sourceTree = "<group>"; };
+		4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDocumentHandler.m; sourceTree = "<group>"; };
+		4C7F56DA1846E2F800D4CCA7 /* CoreDataDocumentHandlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDocumentHandlerDelegate.h; sourceTree = "<group>"; };
+		4C7F56DF1846E31700D4CCA7 /* TimeYaConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeYaConstants.h; sourceTree = "<group>"; };
+		4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDocumentHandlerTest.m; sourceTree = "<group>"; };
+		4CDBC9391846E55F00623E73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4CDBC9781846E6F900623E73 /* AGWaitForAsyncTestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGWaitForAsyncTestHelper.h; sourceTree = "<group>"; };
+		4CDBC97A1846E6F900623E73 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		4CDBC97B1846E6F900623E73 /* OCMArg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		4CDBC97C1846E6F900623E73 /* OCMConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		4CDBC97D1846E6F900623E73 /* OCMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		4CDBC97E1846E6F900623E73 /* OCMockObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		4CDBC97F1846E6F900623E73 /* OCMockRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		4CDBC9841846E72C00623E73 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7F56C01846E2BB00D4CCA7 /* XCTest.framework in Frameworks */,
+				4CDBC9861846E75300623E73 /* libOCMock.a in Frameworks */,
+				4CDBC93A1846E55F00623E73 /* XCTest.framework in Frameworks */,
 				4C7F56C31846E2BB00D4CCA7 /* CoreData.framework in Frameworks */,
 				4C7F56C21846E2BB00D4CCA7 /* UIKit.framework in Frameworks */,
 				4C7F56C11846E2BB00D4CCA7 /* Foundation.framework in Frameworks */,
@@ -103,11 +120,12 @@
 		4C7F56A01846E2BB00D4CCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CDBC9851846E73500623E73 /* usr */,
+				4CDBC9391846E55F00623E73 /* XCTest.framework */,
 				4C7F56A11846E2BB00D4CCA7 /* Foundation.framework */,
 				4C7F56A31846E2BB00D4CCA7 /* CoreGraphics.framework */,
 				4C7F56A51846E2BB00D4CCA7 /* UIKit.framework */,
 				4C7F56A71846E2BB00D4CCA7 /* CoreData.framework */,
-				4C7F56BF1846E2BB00D4CCA7 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,10 +133,10 @@
 		4C7F56A91846E2BB00D4CCA7 /* TimeYa2 */ = {
 			isa = PBXGroup;
 			children = (
+				4C7F56D61846E2E400D4CCA7 /* Model */,
 				4C7F56B21846E2BB00D4CCA7 /* AppDelegate.h */,
 				4C7F56B31846E2BB00D4CCA7 /* AppDelegate.m */,
 				4C7F56B81846E2BB00D4CCA7 /* Images.xcassets */,
-				4C7F56B51846E2BB00D4CCA7 /* TimeYa2.xcdatamodeld */,
 				4C7F56AA1846E2BB00D4CCA7 /* Supporting Files */,
 			);
 			path = TimeYa2;
@@ -127,6 +145,7 @@
 		4C7F56AA1846E2BB00D4CCA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C7F56DF1846E31700D4CCA7 /* TimeYaConstants.h */,
 				4C7F56AB1846E2BB00D4CCA7 /* TimeYa2-Info.plist */,
 				4C7F56AC1846E2BB00D4CCA7 /* InfoPlist.strings */,
 				4C7F56AF1846E2BB00D4CCA7 /* main.m */,
@@ -138,8 +157,8 @@
 		4C7F56C61846E2BB00D4CCA7 /* TimeYa2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4C7F56CC1846E2BB00D4CCA7 /* TimeYa2Tests.m */,
 				4C7F56C71846E2BB00D4CCA7 /* Supporting Files */,
+				4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */,
 			);
 			path = TimeYa2Tests;
 			sourceTree = "<group>";
@@ -151,6 +170,66 @@
 				4C7F56C91846E2BB00D4CCA7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C7F56D61846E2E400D4CCA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */,
+				4C7F56D81846E2F800D4CCA7 /* CoreDataDocumentHandler.h */,
+				4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */,
+				4C7F56DA1846E2F800D4CCA7 /* CoreDataDocumentHandlerDelegate.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4CDBC9761846E6F900623E73 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				4CDBC9771846E6F900623E73 /* AGAsyncTestHelper */,
+				4CDBC9791846E6F900623E73 /* OCMock */,
+			);
+			name = include;
+			path = usr/include;
+			sourceTree = "<group>";
+		};
+		4CDBC9771846E6F900623E73 /* AGAsyncTestHelper */ = {
+			isa = PBXGroup;
+			children = (
+				4CDBC9781846E6F900623E73 /* AGWaitForAsyncTestHelper.h */,
+			);
+			path = AGAsyncTestHelper;
+			sourceTree = "<group>";
+		};
+		4CDBC9791846E6F900623E73 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				4CDBC97A1846E6F900623E73 /* NSNotificationCenter+OCMAdditions.h */,
+				4CDBC97B1846E6F900623E73 /* OCMArg.h */,
+				4CDBC97C1846E6F900623E73 /* OCMConstraint.h */,
+				4CDBC97D1846E6F900623E73 /* OCMock.h */,
+				4CDBC97E1846E6F900623E73 /* OCMockObject.h */,
+				4CDBC97F1846E6F900623E73 /* OCMockRecorder.h */,
+			);
+			path = OCMock;
+			sourceTree = "<group>";
+		};
+		4CDBC9821846E72C00623E73 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				4CDBC9841846E72C00623E73 /* libOCMock.a */,
+			);
+			name = lib;
+			path = usr/lib;
+			sourceTree = "<group>";
+		};
+		4CDBC9851846E73500623E73 /* usr */ = {
+			isa = PBXGroup;
+			children = (
+				4CDBC9821846E72C00623E73 /* lib */,
+				4CDBC9761846E6F900623E73 /* include */,
+			);
+			name = usr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,8 +328,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C7F56B41846E2BB00D4CCA7 /* AppDelegate.m in Sources */,
-				4C7F56B71846E2BB00D4CCA7 /* TimeYa2.xcdatamodeld in Sources */,
+				4C7F56DB1846E2F800D4CCA7 /* TimeYa2.xcdatamodel in Sources */,
 				4C7F56B01846E2BB00D4CCA7 /* main.m in Sources */,
+				4C7F56DD1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +338,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7F56CD1846E2BB00D4CCA7 /* TimeYa2Tests.m in Sources */,
+				4C7F56E11846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m in Sources */,
+				4C7F56DC1846E2F800D4CCA7 /* TimeYa2.xcdatamodel in Sources */,
+				4C7F56DE1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +488,20 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/usr/include\"";
 				INFOPLIST_FILE = "TimeYa2Tests/TimeYa2Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/partyman21/Development/TimeYa2/TimeYa2/usr/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/usr/lib/libOCMock.a\"",
+					"-ObjC",
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -425,7 +520,20 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeYa2/TimeYa2-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/usr/include\"";
 				INFOPLIST_FILE = "TimeYa2Tests/TimeYa2Tests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/partyman21/Development/TimeYa2/TimeYa2/usr/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/usr/lib/libOCMock.a\"",
+					"-ObjC",
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -451,6 +559,7 @@
 				4C7F56D21846E2BB00D4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C7F56D31846E2BB00D4CCA7 /* Build configuration list for PBXNativeTarget "TimeYa2Tests" */ = {
 			isa = XCConfigurationList;
@@ -459,21 +568,9 @@
 				4C7F56D51846E2BB00D4CCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4C7F56B51846E2BB00D4CCA7 /* TimeYa2.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4C7F56B61846E2BB00D4CCA7 /* TimeYa2.xcdatamodel */,
-			);
-			currentVersion = 4C7F56B61846E2BB00D4CCA7 /* TimeYa2.xcdatamodel */;
-			path = TimeYa2.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4C7F56961846E2BB00D4CCA7 /* Project object */;
 }
