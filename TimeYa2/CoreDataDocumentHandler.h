@@ -12,34 +12,33 @@
 /** Singleton class that handles the core data document for this app
  
  If a document name is not specified, it uses the default document name.
- 
  An instance of this class supports creating and deleting a document multiple times.
- 
  */
 
-@interface CoreDataDocumentHandler : NSObject
+@interface CoreDataDocumentHandler : NSObject<NSFileManagerDelegate>
 
 @property (strong, nonatomic) NSString *documentName;
 @property (strong, nonatomic) id <CoreDataDocumentHandlerDelegate> delegate;
 
 /** Class method that retunds a shared instance
- 
  @return CoreDataDocumentHandler shared instance
  */
+
 + (CoreDataDocumentHandler *) sharedInstance;
 
 
-/** Returns app's core data document
+/** Creates app's core data shared document
  
- @return The managed document with TimeYa's core data model
+ The document's mangaed obeject context of the document will be returned through the delegate upon successfull creation
  */
-- (UIManagedDocument *) getCoreDataSharedDocument;
+
+- (void) createCoreDataSharedDocument;
 
 
 /** Deletes app's core data document
- 
  @return YES if the managed document was successfully deleted, otherwise NO
  */
+
 - (BOOL) deleteSharedDocument;
 
 

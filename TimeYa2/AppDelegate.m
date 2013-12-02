@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DDLog.h"
 
 @implementation AppDelegate
 
@@ -16,11 +17,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [DDLog addLogger:self.fileLogger];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+#pragma mark - Application's File Logger
+- (DDFileLogger *) fileLogger{
+    if (!_fileLogger) {
+        
+        
+        DDLogFileManagerDefault *defaultFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:[self applicationDocumentsDirectory].path];
+        
+        _fileLogger = [[DDFileLogger alloc] initWithLogFileManager:defaultFileManager];
+
+		
+		_fileLogger.maximumFileSize = (1024 * 1024 * 1); //  1 MB
+		_fileLogger.rollingFrequency = (60 * 60 * 24);   // 24 Hours
+		
+		_fileLogger.logFileManager.maximumNumberOfLogFiles = 4;
+
+    }
+    
+    return _fileLogger;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -47,6 +71,9 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    //Remove all Loggers
+    [DDLog removeAllLoggers];
+    
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }

@@ -17,14 +17,21 @@
 #ifndef TimeYa_TimeYaConstants_h
 #define TimeYa_TimeYaConstants_h
 
+#define APP_LOG_LEVEL LOG_LEVEL_VERBOSE;
+
 //Core Data Document Handler
-#define CORE_DATA_DOCUMENT_DEBUG 0
 #define CORE_DATA_DOCUMENT_ERROR_DOMAIN @"CoreDataErrorDomain"
 #define DEFAULT_DOCUMENT_NAME @"AppCoreDataDocument"
 #define MAX_NO_DELETE_TRIES 3
+#define MAX_NO_SAVE_TRIES 3
 
 //Entity Data Model Keys
 #define ATTRIBUTES_KEY @"attributes"
+
+//Workout Entity Constants
+#define WORKOUT_ENTITY_NAME @"Workout"
+
+#define WORKOUT_LAST_RUN_KEY @"lastRun"
 
 //Activity Entity Constants
 #define ACTIVITY_ENTITY_NAME @"Activity"

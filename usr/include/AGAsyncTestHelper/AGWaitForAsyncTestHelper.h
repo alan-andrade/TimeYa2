@@ -232,7 +232,6 @@ static NSString * AGWW_CREATE_FAIL_STRING_2(NSString *conditionString, NSTimeInt
     }\
 }
 
-
 //static const char * printFormatTypeForObjCType(const char *type)
 //{
 //    if(strcmp(type, @encode(BOOL)) == 0)

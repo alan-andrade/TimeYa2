@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DDFileLogger.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -15,6 +16,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+//Logger
+@property (strong, nonatomic) DDFileLogger *fileLogger;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
