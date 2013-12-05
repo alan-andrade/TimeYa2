@@ -39,6 +39,8 @@
 		4C7F56DD1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */; };
 		4C7F56DE1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56D91846E2F800D4CCA7 /* CoreDataDocumentHandler.m */; };
 		4C7F56E11846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */; };
+		4C968CE11850145400AAB29C /* Activity+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C968CE01850145400AAB29C /* Activity+CRUD.m */; };
+		4C968CE21850145400AAB29C /* Activity+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C968CE01850145400AAB29C /* Activity+CRUD.m */; };
 		4CDB6DA91849AB4000A4D189 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB6DA81849AB4000A4D189 /* CoreDataTest.m */; };
 		4CDB6DAD1849AB8E00A4D189 /* FakeCoreDataDocumentDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB6DAC1849AB8E00A4D189 /* FakeCoreDataDocumentDelegate.m */; };
 		4CDB6DAF1849ADA800A4D189 /* WorkoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB6DAE1849ADA800A4D189 /* WorkoutTest.m */; };
@@ -97,6 +99,8 @@
 		4C7F56DA1846E2F800D4CCA7 /* CoreDataDocumentHandlerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDocumentHandlerDelegate.h; sourceTree = "<group>"; };
 		4C7F56DF1846E31700D4CCA7 /* TimeYaConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeYaConstants.h; sourceTree = "<group>"; };
 		4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDocumentHandlerTest.m; sourceTree = "<group>"; };
+		4C968CDF1850145400AAB29C /* Activity+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Activity+CRUD.h"; sourceTree = "<group>"; };
+		4C968CE01850145400AAB29C /* Activity+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Activity+CRUD.m"; sourceTree = "<group>"; };
 		4CDB6DA81849AB4000A4D189 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
 		4CDB6DAB1849AB8E00A4D189 /* FakeCoreDataDocumentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeCoreDataDocumentDelegate.h; sourceTree = "<group>"; };
 		4CDB6DAC1849AB8E00A4D189 /* FakeCoreDataDocumentDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeCoreDataDocumentDelegate.m; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 				4C3688D218496DBF00D9BBDB /* Exercise.m */,
 				4C3688CD18496DBF00D9BBDB /* Activity.h */,
 				4C3688CE18496DBF00D9BBDB /* Activity.m */,
+				4C968CDF1850145400AAB29C /* Activity+CRUD.h */,
+				4C968CE01850145400AAB29C /* Activity+CRUD.m */,
 				4C3688C918496DBF00D9BBDB /* Workout.h */,
 				4C3688CA18496DBF00D9BBDB /* Workout.m */,
 				4C3688D918496F7E00D9BBDB /* Workout+CRUD.h */,
@@ -419,6 +425,7 @@
 				4C7F56DD1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
 				4C3688D318496DBF00D9BBDB /* Exercise.m in Sources */,
 				4C3688CF18496DBF00D9BBDB /* Activity.m in Sources */,
+				4C968CE11850145400AAB29C /* Activity+CRUD.m in Sources */,
 				4C3688CB18496DBF00D9BBDB /* Workout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +440,7 @@
 				4CDB6DA91849AB4000A4D189 /* CoreDataTest.m in Sources */,
 				4CDB6DAF1849ADA800A4D189 /* WorkoutTest.m in Sources */,
 				4C7F56DE1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
+				4C968CE21850145400AAB29C /* Activity+CRUD.m in Sources */,
 				4C3688D018496DBF00D9BBDB /* Activity.m in Sources */,
 				4C3688DC18496F7E00D9BBDB /* Workout+CRUD.m in Sources */,
 				4C3688D418496DBF00D9BBDB /* Exercise.m in Sources */,

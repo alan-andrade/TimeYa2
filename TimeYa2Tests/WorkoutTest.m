@@ -8,6 +8,7 @@
 
 #import "Workout+CRUD.h"
 #import "CoreDataTest.h"
+#import "TimeYaConstants.h"
 
 @interface WorkoutTest : CoreDataTest
 
@@ -46,13 +47,33 @@
 
 - (void) testWorkoutIsDeleted{
     
+    NSError* error;
+    
     //Exercise
-    [Workout deleteWorkout:self.workout inManagedObjectContext:self.delegate.managedObjectContext];
+    [Workout deleteWorkout:self.workout error:&error];
     
     //Verify
-    NSArray *workouts = [Workout workoutsInManagedObjectContext:self.delegate.managedObjectContext];
+    NSArray *workouts = [Workout workoutsInManagedObjectContext:self.delegate.managedObjectContext error:&error];
     
     XCTAssertTrue([workouts count] == 0, @"There should be no workouts created");
+    
+}
+
+- (void) testWorkoutIsUpdated{
+    //Setup
+    
+    NSDate* lastRun = [NSDate date];
+    NSDictionary *workoutProperties = @{
+                                   WORKOUT_NAME_KEY:@"Betty",
+                                   WORKOUT_LAST_RUN_KEY:lastRun
+                                   };
+    //Exercise
+    [Workout updateWorkout:self.workout properties:workoutProperties];
+    
+    
+    //Validate
+    XCTAssertEqualObjects(self.workout.name, @"Betty", @"New workout name should be Betty");
+    XCTAssertEqualObjects(self.workout.lastRun, lastRun, @"Date should've been udpated");
     
 }
 

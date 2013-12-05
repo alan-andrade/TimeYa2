@@ -32,6 +32,7 @@
 #define WORKOUT_ENTITY_NAME @"Workout"
 
 #define WORKOUT_LAST_RUN_KEY @"lastRun"
+#define WORKOUT_NAME_KEY @"name"
 
 //Activity Entity Constants
 #define ACTIVITY_ENTITY_NAME @"Activity"

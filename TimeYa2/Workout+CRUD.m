@@ -32,26 +32,46 @@ static int ddLogLevel = APP_LOG_LEVEL;
 
 }
 
-+ (void) deleteWorkout:(Workout *) workout inManagedObjectContext: (NSManagedObjectContext *) context{
++ (BOOL) deleteWorkout:(Workout *) workout error:(NSError**) error{
+    
+    
+    NSManagedObjectContext *context = workout.managedObjectContext;
     
     [context deleteObject:workout];
     
-    NSError *error;
-    BOOL deleted = [context save:&error];
+    BOOL deleted = [context save:error];
     
     if (!deleted) {
-        DDLogError(@"[%@ %@] [ERROR] Workout entity could not be deleted. Workout ID: %@ Name: %@ Error: %@ User Info: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), workout.objectID, workout.name, error, error.userInfo);
+        DDLogError(@"[%@ %@] [ERROR] Workout entity could not be deleted. Workout ID: %@ Name: %@ Error: %@ User Info: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), workout.objectID, workout.name, *error, ((NSError *)*error).userInfo);
     }
+    
+    return deleted;
 }
 
-+ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context{
++ (Workout *) updateWorkout: (Workout *) workout
+                 properties:(NSDictionary *) properties{
+    
+    NSDictionary *workoutAttrDict = [[NSEntityDescription entityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:workout.managedObjectContext] attributesByName];
+    NSArray *workoutAttrKeys = [workoutAttrDict allKeys];
+    
+    NSArray *propertyKeys = [properties allKeys];
+    for(NSString* propertyKey in propertyKeys){
+        
+        if([workoutAttrKeys containsObject:propertyKey]){
+            [workout setValue:properties[propertyKey] forKey:propertyKey];
+        }
+    }
+    
+    return workout;
+}
+
++ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error{
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:WORKOUT_ENTITY_NAME];
     request.predicate = nil;
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LAST_RUN_KEY ascending:YES]];
     
-    NSError *error;
-    return [context executeFetchRequest:request error:&error];
+    return [context executeFetchRequest:request error:error];
     
 }
 

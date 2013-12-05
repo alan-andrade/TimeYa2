@@ -8,7 +8,7 @@
 
 #import "Workout.h"
 
-/**Workout entity category that takes care of create, read, update and delelet operations
+/**Workout category that takes care of create, read, update and delete operations
  
  */
 
@@ -23,14 +23,25 @@
 
 /** Deletes a workout from the specified context
  @param workout Workout to delete
- @param context Context where to delete
+ @param error A pointer to a NSError object
+ @return YES if the workout is deleted, otherwise NO
  */
-+ (void) deleteWorkout:(Workout *) workout inManagedObjectContext: (NSManagedObjectContext *) context;
++ (BOOL) deleteWorkout:(Workout *) workout error:(NSError**) error;
+
+/** Updates a workout properties
+ @param wokout Workout to update
+ @properties Workout properties to update
+ @return Updated workout
+ */
++ (Workout *) updateWorkout: (Workout *) workout
+                 properties:(NSDictionary *) properties;
+
 
 /** Searches for all workouts in the specified context
  @paran context Context where to search
- @param return Array of existing workouts
+ @param error Pointer to a NSError object
+ @return Array of existing workouts in the specified context. If there are no workouts, the array is empty. Nil if there is an error.
  */
-+ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context;
++ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error;
 
 @end
