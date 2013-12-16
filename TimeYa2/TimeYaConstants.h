@@ -33,13 +33,13 @@
 
 #define WORKOUT_LAST_RUN_KEY @"lastRun"
 #define WORKOUT_NAME_KEY @"name"
+#define WORKOUT_ACTIVITIES_KEY @"activities"
 
 //Activity Entity Constants
 #define ACTIVITY_ENTITY_NAME @"Activity"
 
-#define ACTIVITY_POSITION_KEY @"position"
 #define ACTIVITY_NAME_KEY @"name"
-
+#define ACTIVITY_WORKOUT @"workout"
 
 //Exercise Entity Constants
 #define EXERCISE_ENTITY_NAME @"Exercise"
@@ -55,6 +55,19 @@
 #define EXERCISE_TIME_UNIT_KEY @"timeUnit"
 #define EXERCISE_DISTANCE_KEY @"distance"
 #define EXERCISE_DISTANCE_UNIT_KEY @"distanceUnit"
+
+//Exercise Entity Validation Keys
+#define EXERCISE_WEIGHT_UNIQUE_ATTR_ERROR @"WeightUniqueAttributeError"
+#define EXERCISE_SETS_REPS_ATTR_ERROR @"SetsRepsAttributeError"
+#define EXERCISE_DISTANCE_MISSING_UNIT_ERROR @"DistanceMissingUnitsError"
+#define EXERCISE_TIME_MISSING_UNIT_ERROR @"TimeMissingUnitsError"
+#define EXERCISE_WEIGHT_MISSING_UNIT_ERROR @"WeightMissingUnitsError"
+#define EXERCISE_SET_REST_TIME_MISSING_UNIT_ERROR @"SetRestTimeMissingUnitsError"
+
+//Group Entity Constants
+#define GROUP_ENTITY_NAME @"Group"
+
+#define GROUP_ACTIVITIES_KEY @"activities"
 
 
 //Attribute Metrics
@@ -89,12 +102,6 @@ typedef enum TimeUnitType{
     TimeUnitSeconds = 100
 }TimeUnitType;
 
-
-//Workout Entity Constants
-#define WORKOUT_ENTITY_NAME @"Workout"
-
-#define WORKOUT_POSITION_KEY @"position"
-#define WORKOUT_NAME_KEY @"name"
 
 //View Controllers
 #define WORKOUT_TVC_ID @"ShowActivities"

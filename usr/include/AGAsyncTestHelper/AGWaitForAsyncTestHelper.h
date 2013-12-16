@@ -224,6 +224,11 @@ static NSString * AGWW_CREATE_FAIL_STRING_2(NSString *conditionString, NSTimeInt
     return outputString;
 }
 
+static void dummy(){
+    AGWW_CREATE_FAIL_STRING_1(@"", @"");
+    AGWW_CREATE_FAIL_STRING_2(@"", 0.0, @"");
+}
+
 #define AGWWISDifferentType(a1, a2) strcmp(@encode(__typeof__(a1)), @encode(__typeof__(a2))) != 0
 
 #define AGWWAssertSameType(a1, a2) {\

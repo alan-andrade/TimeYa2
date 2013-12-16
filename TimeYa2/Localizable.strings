@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  TimeYa2
+
+  Created by PartyMan on 12/14/13.
+  Copyright (c) 2013 PartyMan. All rights reserved.
+*/
+
+/*Add activity default name*/
+"ADD_ACTIVITY_DEFAULT_NAME"="Exercise Name";
+
+//EXERCISE ATTRIBUTE NAMES
+"distance"="Distance";
+"reps"="Repetitions";
+"rounds"="Rounds";
+"setRestTime"="Set Rest Time";
+"sets"="Sets";
+"time"="Time";
+"weight"="Weight";
+"group"="Group";
+
+//TIME UNIT VALUES
+/*TimeUnitSeconds*/
+"TimeUnitSeconds"="seconds";
+
+//WEIGHT UNIT VALUES
+/*WeightUnitKilograms*/
+"WeightUnitKilograms"="kgs";
+/*WeightUnitPounds*/
+"WeightUnitPounds"="lbs";
+
+
+//DISTANCE UNIT VALUES
+/*DistanceUnitMeters*/
+"DistanceUnitMeters"="mts";
+/*DistanceUnitMiles*/
+"DistanceUnitMiles"="mi";
+
+//EXERCISE VALIDATE ERRORS
+/*Excercise Error Message. Weight porperty can't be the only attribute defined*/
+"WeightUniqueAttributeError"="Weight can't be the only defined attribute";
+
+/*Exercise Error Message. Sets is defined but no reps*/
+"SetsRepsAttributeError"="Reps are mandatory if sets are defined";
+
+/*Exercise Error Message. Distance is defined but not its units*/
+"DistanceMissingUnitsError"="Define distance units";
+
+/*Exercise Error Message. Time is defined but not its units*/
+"TimeMissingUnitsError"="Define time units";
+
+/*Exercise Error Message. Weight is defined but not its units*/
+"WeightMissingUnitsError"="Define weight units";
+
+/*Exercise Error Message. Set Rest Time is defined but not its units*/
+"SetRestTimeMissingUnitsError"="Define set rest time units";

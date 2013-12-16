@@ -2,7 +2,7 @@
 //  Exercise.h
 //  TimeYa2
 //
-//  Created by PartyMan on 11/29/13.
+//  Created by PartyMan on 12/14/13.
 //  Copyright (c) 2013 PartyMan. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import <CoreData/CoreData.h>
 #import "Activity.h"
 
-@class Group;
 
 @interface Exercise : Activity
 
@@ -25,6 +24,5 @@
 @property (nonatomic, retain) NSNumber * timeUnit;
 @property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) NSNumber * weightUnit;
-@property (nonatomic, retain) Group *group;
 
 @end

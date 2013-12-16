@@ -9,6 +9,8 @@
 #import "Workout+CRUD.h"
 #import "CoreDataTest.h"
 #import "TimeYaConstants.h"
+#import "Exercise+CRUD.h"
+#import "Group+CRUD.h"
 
 @interface WorkoutTest : CoreDataTest
 
@@ -60,8 +62,8 @@
 }
 
 - (void) testWorkoutIsUpdated{
+
     //Setup
-    
     NSDate* lastRun = [NSDate date];
     NSDictionary *workoutProperties = @{
                                    WORKOUT_NAME_KEY:@"Betty",
@@ -75,6 +77,41 @@
     XCTAssertEqualObjects(self.workout.name, @"Betty", @"New workout name should be Betty");
     XCTAssertEqualObjects(self.workout.lastRun, lastRun, @"Date should've been udpated");
     
+}
+
+- (void) testInvalidaWorkoutOneLevel{
+    
+    //Setup
+    [Exercise exerciseWithName:@"Ex1" inWorkout:self.workout];
+    [Exercise exerciseWithName:@"Ex2" inWorkout:self.workout];
+    Group *group1 = [Group groupWithName:@"Grp1" inWorkout:self.workout];
+    
+    //Exercise
+    NSArray *invalidGroups = [Workout validateWorkout:self.workout];
+    
+    //Validate
+    XCTAssertTrue([invalidGroups count] == 1, @"There is only one invalid group");
+    XCTAssertEqual(invalidGroups[0], group1, @"Group1 is an invalid group");
+    
+}
+
+- (void) testInvalidaWorkoutTwoLevels{
+    
+    //Setup
+    Group *group1 = [Group groupWithName:@"G1L1" inWorkout:self.workout];
+    Group *group2 = [Group groupWithName:@"G2L1" inWorkout:self.workout];
+    Group *group3 = [Group groupWithName:@"G3L2" inGroup:group1];
+    [Exercise exerciseWithName:@"Ex1" inGroup:group3];
+    [Exercise exerciseWithName:@"Ex2" inGroup:group3];
+    
+    Group *group4 = [Group groupWithName:@"G4L2" inGroup:group2];
+    
+    //Exercise
+    NSArray *invalidGroups = [Workout validateWorkout:self.workout];
+    
+    //Validate
+    XCTAssertTrue([invalidGroups count] == 1, @"There is only one invalid group");
+    XCTAssertEqual(invalidGroups[0], group4, @"Group4 is an invalid group");
 }
 
 

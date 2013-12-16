@@ -27,7 +27,7 @@
 + (CoreDataDocumentHandler *) sharedInstance;
 
 
-/** Creates app's core data shared document
+/** Create app's core data shared document
  
  The document's mangaed obeject context of the document will be returned through the delegate upon successfull creation
  */
@@ -35,7 +35,7 @@
 - (void) createCoreDataSharedDocument;
 
 
-/** Deletes app's core data document
+/** Delete app's core data document
  @return YES if the managed document was successfully deleted, otherwise NO
  */
 

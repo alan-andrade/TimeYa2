@@ -9,6 +9,9 @@
 #import "DDLog.h"
 #import "Workout+CRUD.h"
 #import "TimeYaConstants.h"
+#import "Group.h"
+#import "Activity.h"
+#import "Exercise+CRUD.h"
 
 static int ddLogLevel = APP_LOG_LEVEL;
 
@@ -72,6 +75,48 @@ static int ddLogLevel = APP_LOG_LEVEL;
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LAST_RUN_KEY ascending:YES]];
     
     return [context executeFetchRequest:request error:error];
+    
+}
+
++ (NSArray *) validateWorkout:(Workout *)workout{
+    
+    NSMutableArray *invalidNodes = [[NSMutableArray alloc] init];
+    
+    for (Activity *activity in workout.activities) {
+        [invalidNodes addObjectsFromArray:[self searchEmptyGroups:activity]];
+    }
+    
+    return invalidNodes;
+}
+
++ (NSArray *) searchEmptyGroups:(Activity *) activity{
+    
+    NSMutableArray *emptyGroups = [[NSMutableArray alloc] init];
+    NSEntityDescription *groupEntity = [NSEntityDescription entityForName:GROUP_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
+    
+    if ([[activity entity] isKindOfEntity:groupEntity]) {
+        Group *group = (Group *) activity;
+        
+        if ([group.activities count] == 0) {
+            [emptyGroups addObject:group];
+        }else{
+            for (Activity *activity in group.activities) {
+                [emptyGroups addObjectsFromArray:[self searchEmptyGroups:activity]];
+            }
+        }
+    }
+    
+    return emptyGroups;
+    
+}
+
+
+#pragma mark - Core Data one-to-many accessor method
+
+- (void)addActivitiesObject:(Activity *)value{
+    
+    NSMutableOrderedSet *tmpOrderedSet = [self mutableOrderedSetValueForKey:WORKOUT_ACTIVITIES_KEY];
+    [tmpOrderedSet addObject:value];
     
 }
 
