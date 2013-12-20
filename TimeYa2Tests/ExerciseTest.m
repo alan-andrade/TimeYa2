@@ -45,7 +45,7 @@
 - (void) testAddExerciseToWorkout{
     
     //Exercise
-    Exercise *exercise = [Exercise exerciseWithName:@"Pull ups" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Pull ups" inWorkout:self.workout];
     
     //Validate
     XCTAssertNotNil(exercise, @"Should not be nil");
@@ -57,9 +57,9 @@
 - (void) testAddMultipleExercisesToWorkout{
     //Exercise
     
-    Exercise *exercise1 = [Exercise exerciseWithName:@"Ex1" inWorkout:self.workout];
-    Exercise *exercise2 = [Exercise exerciseWithName:@"Ex2" inWorkout:self.workout];
-    Exercise *exercise3 = [Exercise exerciseWithName:@"Ex3" inWorkout:self.workout];
+    Exercise *exercise1 = (Exercise *) [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
+    Exercise *exercise2 = (Exercise *) [Exercise activityWithName:@"Ex2" inWorkout:self.workout];
+    Exercise *exercise3 = (Exercise *) [Exercise activityWithName:@"Ex3" inWorkout:self.workout];
     
     //Validate
     XCTAssertTrue([self.workout.activities count] == 3, @"Workout should have three exercises");
@@ -82,8 +82,8 @@
 - (void) testDeleteWorkoutDeletesExercises{
     
     //Setup
-    [Exercise exerciseWithName:@"Del1" inWorkout:self.workout];
-    [Exercise exerciseWithName:@"Del2" inWorkout:self.workout];
+    [Exercise activityWithName:@"Del1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Del2" inWorkout:self.workout];
     
     //Exercise
     NSError *error;
@@ -102,8 +102,8 @@
 - (void) testDeleteExerciseFromWorkout{
     
     //Setup
-    Exercise *exercise1 = [Exercise exerciseWithName:@"Del1" inWorkout:self.workout];
-    Exercise *exercise2 = [Exercise exerciseWithName:@"Keep2" inWorkout:self.workout];
+    Exercise *exercise1 = (Exercise *) [Exercise activityWithName:@"Del1" inWorkout:self.workout];
+    Exercise *exercise2 = (Exercise *) [Exercise activityWithName:@"Keep2" inWorkout:self.workout];
     
     //Exercise
     
@@ -120,7 +120,7 @@
 - (void) testUdpateExercise{
     
     //Setup
-    Exercise *exercise = [Exercise exerciseWithName:@"Update1" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Update1" inWorkout:self.workout];
     Exercise *exerciseTmp = exercise;
     
     NSDictionary *values = @{
@@ -143,7 +143,7 @@
 - (void) testValidExercise{
     
     //Setup
-    Exercise *exercise = [Exercise exerciseWithName:@"Valid1" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Valid1" inWorkout:self.workout];
     
     NSDictionary *values = @{
                              ACTIVITY_NAME_KEY: @"Burpess",
@@ -163,7 +163,7 @@
 - (void) testInvalidExerciseIncompleteDefinition{
     
     //Setup
-    Exercise *exercise = [Exercise exerciseWithName:@"Validate1" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Validate1" inWorkout:self.workout];
     
     NSDictionary *values = @{
                              ACTIVITY_NAME_KEY: @"Bench Press",
@@ -183,7 +183,7 @@
 - (void) testInvalidExerciseUndefinedReps{
     
     //Setup
-    Exercise *exercise = [Exercise exerciseWithName:@"Validate1" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Validate1" inWorkout:self.workout];
     
     NSDictionary *values = @{
                              ACTIVITY_NAME_KEY: @"Bench Press",
@@ -203,7 +203,7 @@
 - (void) testInvalidExerciseMissingUnitType{
     
     //Setup
-    Exercise *exercise = [Exercise exerciseWithName:@"Validate1" inWorkout:self.workout];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Validate1" inWorkout:self.workout];
     
     NSDictionary *values = @{
                              ACTIVITY_NAME_KEY: @"Clean",

@@ -46,7 +46,7 @@
 - (void) testAddGroupToWorkout{
     
     //Exercise
-    Group *group = [Group groupWithName:@"Add" inWorkout:self.workout];
+    Group *group = (Group *) [Group activityWithName:@"Add" inWorkout:self.workout];
     
     //Validate
     XCTAssertNotNil(group, @"Should not be nil");
@@ -59,10 +59,10 @@
 - (void) testAddGroupToGroup{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Add1" inWorkout:self.workout];
+    Group *group1 = (Group *) [Group activityWithName:@"Add1" inWorkout:self.workout];
     
     //Exercise
-    Group *group2 = [Group groupWithName:@"Add2" inGroup:group1];
+    Group *group2 = (Group *) [Group activityWithName:@"Add2" inGroup:group1];
     
     //Validate
     XCTAssertNotNil(group2, @"Should not be nil");
@@ -75,7 +75,7 @@
 - (void) testDeleteGroupFromWorkout{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Del" inWorkout:self.workout];
+    Group *group1 = (Group *) [Group activityWithName:@"Del" inWorkout:self.workout];
     
     //Exercise
     NSError *error, *error2 = nil;
@@ -91,8 +91,8 @@
 - (void) testDeleteGroupfromGroup{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Del1" inWorkout:self.workout];
-    Group *group2 = [Group groupWithName:@"Del2" inGroup:group1];
+    Group *group1 = (Group *) [Group activityWithName:@"Del1" inWorkout:self.workout];
+    Group *group2 = (Group *) [Group activityWithName:@"Del2" inGroup:group1];
     
     //Exercise
     NSError *error, *error2 = nil;
@@ -112,9 +112,9 @@
 - (void) testDeleteGroupDeletesExercises{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Group1" inWorkout:self.workout];
-    [Exercise exerciseWithName:@"Ex1" inGroup:group1];
-    [Exercise exerciseWithName:@"Ex2" inGroup:group1];
+    Group *group1 = (Group *) [Group activityWithName:@"Group1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex1" inGroup:group1];
+    [Exercise activityWithName:@"Ex2" inGroup:group1];
     
     //Exercise
     NSError *error1, *error2 = nil;
@@ -131,12 +131,12 @@
 - (void) testAddExerciseToGroup{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Group1" inWorkout:self.workout];
-    Group *group2 = [Group groupWithName:@"Group2" inGroup:group1];
+    Group *group1 = (Group *) [Group activityWithName:@"Group1" inWorkout:self.workout];
+    Group *group2 = (Group *) [Group activityWithName:@"Group2" inGroup:group1];
     
     //Exercise
-    Exercise *exercise1 = [Exercise exerciseWithName:@"Ex1" inGroup:group2];
-    Exercise *exercise2 = [Exercise exerciseWithName:@"Ex2" inGroup:group2];
+    Exercise *exercise1 = (Exercise *) [Exercise activityWithName:@"Ex1" inGroup:group2];
+    Exercise *exercise2 = (Exercise *) [Exercise activityWithName:@"Ex2" inGroup:group2];
     
     //Validate
     XCTAssertTrue([group2.activities count] == 2, @"Group 2 should have two exercises");
@@ -151,11 +151,11 @@
 - (void) testDeleteWorkoutDeletesGroupsAndExercises{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"Group1" inWorkout:self.workout];
-    Group *group2 = [Group groupWithName:@"Group2" inGroup:group1];
-    [Exercise exerciseWithName:@"Ex1" inGroup:group2];
-    [Exercise exerciseWithName:@"Ex2" inGroup:group2];
-    [Exercise exerciseWithName:@"Ex3" inWorkout:self.workout];
+    Group *group1 = (Group *) [Group activityWithName:@"Group1" inWorkout:self.workout];
+    Group *group2 = (Group *) [Group activityWithName:@"Group2" inGroup:group1];
+    [Exercise activityWithName:@"Ex1" inGroup:group2];
+    [Exercise activityWithName:@"Ex2" inGroup:group2];
+    [Exercise activityWithName:@"Ex3" inWorkout:self.workout];
     
     //Exercise
     NSError *error1, *error2, *error3 = nil;
@@ -173,7 +173,7 @@
 - (void) testCountGroups{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"G1" inWorkout:self.workout];
+    Group *group1 = (Group *) [Group activityWithName:@"G1" inWorkout:self.workout];
     
     //Exercise
     NSError *error;

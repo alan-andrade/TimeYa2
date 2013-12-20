@@ -76,6 +76,7 @@
 		4C3688E31849924900D9BBDB /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = usr/Lumberjack/DDFileLogger.m; sourceTree = SOURCE_ROOT; };
 		4C3688E41849924900D9BBDB /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = usr/Lumberjack/DDLog.h; sourceTree = SOURCE_ROOT; };
 		4C3688E51849924900D9BBDB /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = usr/Lumberjack/DDLog.m; sourceTree = SOURCE_ROOT; };
+		4C565F821863E1ED0057B78C /* ActivityOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityOperations.h; sourceTree = "<group>"; };
 		4C61EF07184C1FC3002A7AEF /* CoreDataManagedDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManagedDocument.h; sourceTree = "<group>"; };
 		4C61EF08184C1FC3002A7AEF /* CoreDataManagedDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManagedDocument.m; sourceTree = "<group>"; };
 		4C61EF0D184C3C21002A7AEF /* AGWaitForAsyncTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGWaitForAsyncTestHelper.h; sourceTree = "<group>"; };
@@ -276,6 +277,7 @@
 				4C70A1561858100C00DE2249 /* Group+CRUD.m */,
 				4C70A1451857FAEE00DE2249 /* Exercise+CRUD.h */,
 				4C70A1461857FAEE00DE2249 /* Exercise+CRUD.m */,
+				4C565F821863E1ED0057B78C /* ActivityOperations.h */,
 				4C968CDF1850145400AAB29C /* Activity+CRUD.h */,
 				4C968CE01850145400AAB29C /* Activity+CRUD.m */,
 				4C3688D918496F7E00D9BBDB /* Workout+CRUD.h */,

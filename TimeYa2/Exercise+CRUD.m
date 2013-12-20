@@ -13,37 +13,6 @@
 
 @implementation Exercise (CRUD)
 
-+ (Exercise *) exerciseWithName:(NSString *) name inWorkout:(Workout *) workout{
-    
-    Exercise *exercise = [Exercise exerciseWithName:name inContext:workout.managedObjectContext];
-    
-    [workout addActivitiesObject:exercise];
-    
-    return exercise;
-}
-
-+ (Exercise *) exerciseWithName:(NSString *)name inGroup:(Group *)group{
-    
-    Exercise *exercise = [Exercise exerciseWithName:name inContext:group.managedObjectContext];
-    
-    [group addActivitiesObject:exercise];
-    
-    return exercise;
-    
-}
-
-+ (Exercise *) exerciseWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
-    
-    if(name.length == 0){
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Exercise name can't be empty" userInfo:nil] raise];
-    }
-    
-    Exercise *exercise = [NSEntityDescription insertNewObjectForEntityForName:EXERCISE_ENTITY_NAME inManagedObjectContext:context];
-    exercise.name = name;
-    
-    return exercise;
-    
-}
 
 + (NSArray *) exercisesInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error{
     
@@ -52,6 +21,23 @@
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:ACTIVITY_NAME_KEY ascending:YES]];
     
     return [context executeFetchRequest:request error:error];
+}
+
+#pragma mark ActivityOperations protocol methods
+
++ (Exercise *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
+    
+    Exercise *exercise = [Exercise exerciseWithName:name inContext:workout.managedObjectContext];
+    [workout addActivitiesObject:exercise];
+    return exercise;
+    
+}
+
++ (Exercise *) activityWithName:(NSString *) name inGroup:(Group *)group{
+    
+    Exercise *exercise = [Exercise exerciseWithName:name inContext:group.managedObjectContext];
+    [group addActivitiesObject:exercise];
+    return exercise;
 }
 
 + (Activity *) updateActivity:(Activity *) activity withValues:(NSDictionary *) values{
@@ -76,40 +62,6 @@
     }
     
     return exercise;
-    
-}
-
-+ (NSDictionary *) cleanUpUpdateValues:(NSDictionary *) values{
-    
-    NSMutableDictionary *mutableValues = [values mutableCopy];
-    
-    //Sets == 0
-    if ([mutableValues[EXERCISE_SETS_KEY] intValue] == 0) {
-        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_KEY];
-        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_UNIT_KEY];
-    }
-    
-    //Set Rest Time == 0
-    if([mutableValues[EXERCISE_SET_REST_TIME_KEY] intValue] == 0){
-        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_UNIT_KEY];
-    }
-    
-    //Time == 0
-    if([mutableValues[EXERCISE_TIME_KEY] intValue] == 0){
-        [mutableValues removeObjectForKey:EXERCISE_TIME_UNIT_KEY];
-    }
-    
-    //Weight == 0
-    if([mutableValues[EXERCISE_WEIGHT_KEY] intValue] == 0){
-        [mutableValues removeObjectForKey:EXERCISE_WEIGHT_UNIT_KEY];
-    }
-    
-    //Distance == 0
-    if([mutableValues[EXERCISE_DISTANCE_KEY] intValue] == 0){
-        [mutableValues removeObjectForKey:EXERCISE_DISTANCE_UNIT_KEY];
-    }
-    
-    return mutableValues;
     
 }
 
@@ -155,6 +107,54 @@
     return errors;
 }
 
+
+#pragma mark Helper methods
+
++ (Exercise *) exerciseWithName:(NSString *)name inContext:(NSManagedObjectContext *)context{
+    
+    if(name.length == 0){
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Exercise name can't be empty" userInfo:nil] raise];
+    }
+    
+    Exercise *exercise = [NSEntityDescription insertNewObjectForEntityForName:EXERCISE_ENTITY_NAME inManagedObjectContext:context];
+    exercise.name = name;
+    return exercise;
+    
+}
+
++ (NSDictionary *) cleanUpUpdateValues:(NSDictionary *) values{
+    
+    NSMutableDictionary *mutableValues = [values mutableCopy];
+    
+    //Sets == 0
+    if ([mutableValues[EXERCISE_SETS_KEY] intValue] == 0) {
+        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_KEY];
+        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_UNIT_KEY];
+    }
+    
+    //Set Rest Time == 0
+    if([mutableValues[EXERCISE_SET_REST_TIME_KEY] intValue] == 0){
+        [mutableValues removeObjectForKey:EXERCISE_SET_REST_TIME_UNIT_KEY];
+    }
+    
+    //Time == 0
+    if([mutableValues[EXERCISE_TIME_KEY] intValue] == 0){
+        [mutableValues removeObjectForKey:EXERCISE_TIME_UNIT_KEY];
+    }
+    
+    //Weight == 0
+    if([mutableValues[EXERCISE_WEIGHT_KEY] intValue] == 0){
+        [mutableValues removeObjectForKey:EXERCISE_WEIGHT_UNIT_KEY];
+    }
+    
+    //Distance == 0
+    if([mutableValues[EXERCISE_DISTANCE_KEY] intValue] == 0){
+        [mutableValues removeObjectForKey:EXERCISE_DISTANCE_UNIT_KEY];
+    }
+    
+    return mutableValues;
+    
+}
 
 
 @end

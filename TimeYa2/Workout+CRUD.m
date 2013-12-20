@@ -120,4 +120,67 @@ static int ddLogLevel = APP_LOG_LEVEL;
     
 }
 
+int position;
+int depth;
+NSMutableArray *parentStack;
+
++ (void) preorderWorkout:(Workout *) workout{
+    
+    NSLog(@"Workout: %@", workout.name);
+    
+    position = 0;
+    depth = 0;
+    parentStack = [[NSMutableArray alloc] init];
+    
+    for (Activity* activity in workout.activities) {
+        [self preorder:activity];
+    }
+    
+    parentStack = nil;
+    
+}
+
++ (void) preorder:(Activity *) activity{
+    
+    if ([self isKindOfExerciseEntity:activity]) {
+        NSLog(@"%i)%*s %@ (%@) \t Parent: %@", position, depth, "", activity.name, @0, [[parentStack lastObject] name]);
+    }else{
+        NSLog(@"%i)%*s %@ (%i) \t Parent: %@", position, depth, "", activity.name, [((Group *)activity).activities count], [[parentStack lastObject] name]);
+    }
+    
+    position++;
+    
+    if([self isKindOfGroupEntity:activity]){
+        
+        Group *group = (Group *)activity;
+
+        depth++;
+        [parentStack addObject:group];
+        
+        for (Activity *childActivity in group.activities) {
+            [self preorder:childActivity];
+        }
+        
+        depth --;
+        [parentStack removeLastObject];
+        
+    }else if([self isKindOfExerciseEntity:activity]){
+        return;
+    }
+}
+
++ (BOOL) isKindOfGroupEntity:(Activity *) activity{
+    
+    NSEntityDescription *groupEntity = [NSEntityDescription entityForName:GROUP_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
+    return [[activity entity] isKindOfEntity:groupEntity];
+}
+
++ (BOOL) isKindOfExerciseEntity:(Activity *) activity{
+    
+    NSEntityDescription *exerciseEntity = [NSEntityDescription entityForName:EXERCISE_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
+    return [[activity entity] isKindOfEntity:exerciseEntity];
+}
+
+
+
 @end

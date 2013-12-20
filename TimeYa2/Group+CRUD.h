@@ -7,24 +7,9 @@
 //
 
 #import "Group.h"
+#import "ActivityOperations.h"
 
-@interface Group (CRUD)
-
-/**Create a group entity with a name in the specified workout
- @param name Name of the group
- @param workout Workout where the exercise will be added
- @return Group entity created
- */
-
-+ (Group *) groupWithName:(NSString *) name inWorkout:(Workout *) workout;
-
-/**Create a group entity with a name in the specified group
- @param name Name of the group
- @param workout Group where the group will be added
- @return Group entity created
- */
-
-+ (Group *) groupWithName:(NSString *) name inGroup:(Group *) group;
+@interface Group (CRUD) <ActivityOperations>
 
 /** Search for all groups in the specified context
  @paran context Context where to search

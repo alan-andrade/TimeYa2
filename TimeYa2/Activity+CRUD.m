@@ -24,6 +24,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return [context executeFetchRequest:request error:error];
 }
 
+
 + (BOOL) deleteActivity:(Activity *) activity error:(NSError **)error{
    
     NSManagedObjectContext *context = activity.managedObjectContext;
@@ -39,12 +40,34 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return deleted;
 }
 
+#pragma mark ActivityOperations protocol methods
+
++ (Activity *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
+    
+    return nil;
+}
+
++ (Activity *) activityWithName:(NSString *) name inGroup:(Group *) group{
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
+    
+    return nil;
+}
+
 + (Activity *) updateActivity:(Activity *) activity withValues:(NSDictionary *) values{
-    return [[activity class] updateActivity:activity withValues:values];
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
+    
+    return nil;
 }
 
 + (NSArray *) validateActivity:(Activity *) activity{
-    return [[activity class] validateActivity:activity];
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
+    
+    return nil;
 }
 
 @end

@@ -12,39 +12,6 @@
 
 @implementation Group (CRUD)
 
-+ (Group *) groupWithName:(NSString *)name inWorkout:(Workout *)workout{
-    
-    Group *group = [Group groupWithName:name inContext:workout.managedObjectContext];
-    
-    [workout addActivitiesObject:group];
-    
-    return group;
-    
-}
-
-+ (Group *) groupWithName:(NSString *)name inGroup:(Group *)group{
-    
-    Group *groupNew = [Group groupWithName:name inContext:group.managedObjectContext];
-    
-    [group addActivitiesObject:groupNew];
-    
-    return groupNew;
-    
-}
-
-+ (Group *) groupWithName:(NSString *)name inContext:(NSManagedObjectContext*) context{
-    
-    if(name.length == 0){
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Exercise name can't be empty" userInfo:nil] raise];
-    }
-    
-    Group *group = [NSEntityDescription insertNewObjectForEntityForName:GROUP_ENTITY_NAME inManagedObjectContext:context];
-    
-    group.name = name;
-    
-    return group;
-}
-
 
 + (NSArray *) groupsInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error{
     
@@ -55,6 +22,38 @@
     return [context executeFetchRequest:request error:error];
     
 }
+
++ (Group *) groupWithName:(NSString *)name inContext:(NSManagedObjectContext*) context{
+    
+    if(name.length == 0){
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Exercise name can't be empty" userInfo:nil] raise];
+    }
+    
+    Group *group = [NSEntityDescription insertNewObjectForEntityForName:GROUP_ENTITY_NAME inManagedObjectContext:context];
+    group.name = name;
+    return group;
+}
+
+
+#pragma mark ActivityOperations protocol methods
+
++ (Group *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
+    
+    Group *group = [Group groupWithName:name inContext:workout.managedObjectContext];
+    [workout addActivitiesObject:group];
+    return group;
+    
+}
+
++ (Group *) activityWithName:(NSString *) name inGroup:(Group *)group{
+    
+    Group *groupNew = [Group groupWithName:name inContext:group.managedObjectContext];
+    [group addActivitiesObject:groupNew];
+    return groupNew;
+    
+}
+
+
      
 #pragma mark - Core Data one-to-many accessor method
      

@@ -11,6 +11,7 @@
 #import "TimeYaConstants.h"
 #import "Exercise+CRUD.h"
 #import "Group+CRUD.h"
+#import "Activity+CRUD.h"
 
 @interface WorkoutTest : CoreDataTest
 
@@ -82,9 +83,9 @@
 - (void) testInvalidaWorkoutOneLevel{
     
     //Setup
-    [Exercise exerciseWithName:@"Ex1" inWorkout:self.workout];
-    [Exercise exerciseWithName:@"Ex2" inWorkout:self.workout];
-    Group *group1 = [Group groupWithName:@"Grp1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex2" inWorkout:self.workout];
+    Group *group1 = (Group *)[Group activityWithName:@"Grp1" inWorkout:self.workout];
     
     //Exercise
     NSArray *invalidGroups = [Workout validateWorkout:self.workout];
@@ -98,13 +99,13 @@
 - (void) testInvalidaWorkoutTwoLevels{
     
     //Setup
-    Group *group1 = [Group groupWithName:@"G1L1" inWorkout:self.workout];
-    Group *group2 = [Group groupWithName:@"G2L1" inWorkout:self.workout];
-    Group *group3 = [Group groupWithName:@"G3L2" inGroup:group1];
-    [Exercise exerciseWithName:@"Ex1" inGroup:group3];
-    [Exercise exerciseWithName:@"Ex2" inGroup:group3];
+    Group *group1 = (Group *)[Group activityWithName:@"G1L1" inWorkout:self.workout];
+    Group *group2 = (Group *)[Group activityWithName:@"G2L1" inWorkout:self.workout];
+    Group *group3 = (Group *)[Group activityWithName:@"G3L2" inGroup:group1];
+    [Exercise activityWithName:@"Ex1" inGroup:group3];
+    [Exercise activityWithName:@"Ex2" inGroup:group3];
     
-    Group *group4 = [Group groupWithName:@"G4L2" inGroup:group2];
+    Group *group4 = (Group *) [Group activityWithName:@"G4L2" inGroup:group2];
     
     //Exercise
     NSArray *invalidGroups = [Workout validateWorkout:self.workout];
@@ -112,6 +113,29 @@
     //Validate
     XCTAssertTrue([invalidGroups count] == 1, @"There is only one invalid group");
     XCTAssertEqual(invalidGroups[0], group4, @"Group4 is an invalid group");
+}
+
+- (void) testWorkoutPreOrder{
+    
+    Group *group0 = (Group *) [Group activityWithName:@"Group 0" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex 1" inGroup:group0];
+    [Exercise activityWithName:@"Ex 2" inGroup:group0];
+    
+    Group *group1 = (Group *) [Group activityWithName:@"Group 1" inWorkout:self.workout];
+    Group *group2 = (Group *) [Group activityWithName:@"Group 2" inGroup:group1];
+    [Exercise activityWithName:@"Ex 3" inGroup:group2];
+    [Exercise activityWithName:@"Ex 4" inGroup:group2];
+    [Exercise activityWithName:@"Ex 5" inGroup:group2];
+    
+    [Exercise activityWithName:@"Ex 6" inWorkout:self.workout];
+    
+    NSLog(@"************************************************************");
+    
+    [Workout preorderWorkout:self.workout];
+    
+    NSLog(@"************************************************************");
+    
+    XCTAssertTrue(YES, @"YES");
 }
 
 
