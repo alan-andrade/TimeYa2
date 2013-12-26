@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A3017" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Activity" representedClassName="Activity" isAbstract="YES" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activityNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutTreeNode" inverseName="activity" inverseEntity="WorkoutTreeNode" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="activities" inverseEntity="Group" syncable="YES"/>
         <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="activities" inverseEntity="Workout" syncable="YES"/>
     </entity>
@@ -27,11 +28,25 @@
         <attribute name="lastRun" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Activity" inverseName="workout" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="rootNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutTreeRoot" inverseName="workout" inverseEntity="WorkoutTreeRoot" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutTreeNode" representedClassName="WorkoutTreeNode" syncable="YES">
+        <attribute name="allowChildren" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="activityNode" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="root" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutTreeRoot" inverseName="nodes" inverseEntity="WorkoutTreeRoot" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutTreeRoot" representedClassName="WorkoutTreeRoot" isAbstract="YES" syncable="YES">
+        <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkoutTreeNode" inverseName="root" inverseEntity="WorkoutTreeNode" syncable="YES"/>
+        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="rootNode" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="162" positionY="226" width="128" height="88"/>
-        <element name="Exercise" positionX="243" positionY="431" width="128" height="208"/>
-        <element name="Group" positionX="-18" positionY="423" width="128" height="73"/>
-        <element name="Workout" positionX="-110" positionY="212" width="128" height="103"/>
+        <element name="Activity" positionX="99" positionY="371" width="128" height="103"/>
+        <element name="Exercise" positionX="225" positionY="540" width="128" height="208"/>
+        <element name="Group" positionX="-81" positionY="530" width="128" height="73"/>
+        <element name="Workout" positionX="133" positionY="212" width="128" height="118"/>
+        <element name="WorkoutTreeNode" positionX="502" positionY="341" width="128" height="118"/>
+        <element name="WorkoutTreeRoot" positionX="493" positionY="207" width="128" height="73"/>
     </elements>
 </model>

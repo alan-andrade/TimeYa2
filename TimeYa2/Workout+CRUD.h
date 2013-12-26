@@ -50,6 +50,5 @@
  */
 + (NSArray *) validateWorkout:(Workout *)workout;
 
-+ (void) preorderWorkout:(Workout *) workout;
 
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4C2D1BAF1859414A00D3B435 /* ExerciseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2D1BAE1859414A00D3B435 /* ExerciseTest.m */; };
 		4C336CF1185D2019009F0293 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C336CF0185D2019009F0293 /* Localizable.strings */; };
+		4C35E60B1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C35E60A1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m */; };
+		4C35E60C1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C35E60A1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m */; };
 		4C3688DB18496F7E00D9BBDB /* Workout+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3688DA18496F7E00D9BBDB /* Workout+CRUD.m */; };
 		4C3688DC18496F7E00D9BBDB /* Workout+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3688DA18496F7E00D9BBDB /* Workout+CRUD.m */; };
 		4C3688E91849924900D9BBDB /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3688DF1849924900D9BBDB /* DDAbstractDatabaseLogger.m */; };
@@ -39,6 +41,8 @@
 		4C7F56E11846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */; };
 		4C968CE11850145400AAB29C /* Activity+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C968CE01850145400AAB29C /* Activity+CRUD.m */; };
 		4C968CE21850145400AAB29C /* Activity+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C968CE01850145400AAB29C /* Activity+CRUD.m */; };
+		4CBB12B9186A9386005125CD /* WorkoutTreeNode+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB12B8186A9386005125CD /* WorkoutTreeNode+CRUD.m */; };
+		4CBB12BA186A9386005125CD /* WorkoutTreeNode+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB12B8186A9386005125CD /* WorkoutTreeNode+CRUD.m */; };
 		4CBD1EA1185D5AC600211541 /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBD1EA0185D5AC600211541 /* Workout.m */; };
 		4CBD1EA2185D5AC600211541 /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBD1EA0185D5AC600211541 /* Workout.m */; };
 		4CBD1EA5185D5AC600211541 /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBD1EA4185D5AC600211541 /* Exercise.m */; };
@@ -53,6 +57,13 @@
 		4CDB6DAF1849ADA800A4D189 /* WorkoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB6DAE1849ADA800A4D189 /* WorkoutTest.m */; };
 		4CDBC93A1846E55F00623E73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDBC9391846E55F00623E73 /* XCTest.framework */; };
 		4CDBC9861846E75300623E73 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDBC9841846E72C00623E73 /* libOCMock.a */; };
+		4CFFB0DB186B4B530041D7DE /* WorkoutTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0DA186B4B530041D7DE /* WorkoutTreeRoot.m */; };
+		4CFFB0DC186B4B530041D7DE /* WorkoutTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0DA186B4B530041D7DE /* WorkoutTreeRoot.m */; };
+		4CFFB0DF186B4B530041D7DE /* WorkoutTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0DE186B4B530041D7DE /* WorkoutTreeNode.m */; };
+		4CFFB0E0186B4B530041D7DE /* WorkoutTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0DE186B4B530041D7DE /* WorkoutTreeNode.m */; };
+		4CFFB0E7186B9A330041D7DE /* WorkoutTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0E6186B9A330041D7DE /* WorkoutTreeController.m */; };
+		4CFFB0E8186B9A330041D7DE /* WorkoutTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0E6186B9A330041D7DE /* WorkoutTreeController.m */; };
+		4CFFB0EA186BAB500041D7DE /* WorkoutTreeControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFB0E9186BAB500041D7DE /* WorkoutTreeControllerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +79,8 @@
 /* Begin PBXFileReference section */
 		4C2D1BAE1859414A00D3B435 /* ExerciseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseTest.m; sourceTree = "<group>"; };
 		4C336CF0185D2019009F0293 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		4C35E6091865321E0005C7CC /* WorkoutTreeRoot+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WorkoutTreeRoot+CRUD.h"; sourceTree = "<group>"; };
+		4C35E60A1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WorkoutTreeRoot+CRUD.m"; sourceTree = "<group>"; };
 		4C3688D918496F7E00D9BBDB /* Workout+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+CRUD.h"; sourceTree = "<group>"; };
 		4C3688DA18496F7E00D9BBDB /* Workout+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+CRUD.m"; sourceTree = "<group>"; };
 		4C3688DE1849924900D9BBDB /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = usr/Lumberjack/DDAbstractDatabaseLogger.h; sourceTree = SOURCE_ROOT; };
@@ -107,6 +120,8 @@
 		4C7F56E01846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDocumentHandlerTest.m; sourceTree = "<group>"; };
 		4C968CDF1850145400AAB29C /* Activity+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Activity+CRUD.h"; sourceTree = "<group>"; };
 		4C968CE01850145400AAB29C /* Activity+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Activity+CRUD.m"; sourceTree = "<group>"; };
+		4CBB12B7186A9386005125CD /* WorkoutTreeNode+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WorkoutTreeNode+CRUD.h"; sourceTree = "<group>"; };
+		4CBB12B8186A9386005125CD /* WorkoutTreeNode+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WorkoutTreeNode+CRUD.m"; sourceTree = "<group>"; };
 		4CBD1E9F185D5AC600211541 /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
 		4CBD1EA0185D5AC600211541 /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
 		4CBD1EA3185D5AC600211541 /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
@@ -129,6 +144,13 @@
 		4CDBC97E1846E6F900623E73 /* OCMockObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		4CDBC97F1846E6F900623E73 /* OCMockRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		4CDBC9841846E72C00623E73 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		4CFFB0D9186B4B530041D7DE /* WorkoutTreeRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutTreeRoot.h; sourceTree = "<group>"; };
+		4CFFB0DA186B4B530041D7DE /* WorkoutTreeRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTreeRoot.m; sourceTree = "<group>"; };
+		4CFFB0DD186B4B530041D7DE /* WorkoutTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutTreeNode.h; sourceTree = "<group>"; };
+		4CFFB0DE186B4B530041D7DE /* WorkoutTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTreeNode.m; sourceTree = "<group>"; };
+		4CFFB0E5186B9A330041D7DE /* WorkoutTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutTreeController.h; sourceTree = "<group>"; };
+		4CFFB0E6186B9A330041D7DE /* WorkoutTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTreeController.m; sourceTree = "<group>"; };
+		4CFFB0E9186BAB500041D7DE /* WorkoutTreeControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTreeControllerTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +270,7 @@
 				4CDB6DAE1849ADA800A4D189 /* WorkoutTest.m */,
 				4C2D1BAE1859414A00D3B435 /* ExerciseTest.m */,
 				4CBD1EB1185D5C8700211541 /* GroupTest.m */,
+				4CFFB0E9186BAB500041D7DE /* WorkoutTreeControllerTest.m */,
 			);
 			path = TimeYa2Tests;
 			sourceTree = "<group>";
@@ -265,6 +288,16 @@
 			isa = PBXGroup;
 			children = (
 				4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */,
+				4CFFB0E5186B9A330041D7DE /* WorkoutTreeController.h */,
+				4CFFB0E6186B9A330041D7DE /* WorkoutTreeController.m */,
+				4CFFB0D9186B4B530041D7DE /* WorkoutTreeRoot.h */,
+				4CFFB0DA186B4B530041D7DE /* WorkoutTreeRoot.m */,
+				4C35E6091865321E0005C7CC /* WorkoutTreeRoot+CRUD.h */,
+				4C35E60A1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m */,
+				4CFFB0DD186B4B530041D7DE /* WorkoutTreeNode.h */,
+				4CFFB0DE186B4B530041D7DE /* WorkoutTreeNode.m */,
+				4CBB12B7186A9386005125CD /* WorkoutTreeNode+CRUD.h */,
+				4CBB12B8186A9386005125CD /* WorkoutTreeNode+CRUD.m */,
 				4CBD1EAB185D5AC700211541 /* Group.h */,
 				4CBD1EAC185D5AC700211541 /* Group.m */,
 				4CBD1EA7185D5AC700211541 /* Activity.h */,
@@ -440,6 +473,7 @@
 				4C7F56B41846E2BB00D4CCA7 /* AppDelegate.m in Sources */,
 				4C3688EB1849924900D9BBDB /* DDFileLogger.m in Sources */,
 				4CBD1EA9185D5AC700211541 /* Activity.m in Sources */,
+				4CBB12B9186A9386005125CD /* WorkoutTreeNode+CRUD.m in Sources */,
 				4C70A1471857FAEE00DE2249 /* Exercise+CRUD.m in Sources */,
 				4C3688DB18496F7E00D9BBDB /* Workout+CRUD.m in Sources */,
 				4C61EF09184C1FC3002A7AEF /* CoreDataManagedDocument.m in Sources */,
@@ -447,12 +481,16 @@
 				4C3688E91849924900D9BBDB /* DDAbstractDatabaseLogger.m in Sources */,
 				4C3688EC1849924900D9BBDB /* DDLog.m in Sources */,
 				4C7F56B01846E2BB00D4CCA7 /* main.m in Sources */,
+				4CFFB0DB186B4B530041D7DE /* WorkoutTreeRoot.m in Sources */,
 				4C7F56DD1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
 				4C70A1571858100C00DE2249 /* Group+CRUD.m in Sources */,
 				4C968CE11850145400AAB29C /* Activity+CRUD.m in Sources */,
 				4CBD1EA5185D5AC600211541 /* Exercise.m in Sources */,
 				4CBD1EA1185D5AC600211541 /* Workout.m in Sources */,
+				4CFFB0DF186B4B530041D7DE /* WorkoutTreeNode.m in Sources */,
+				4CFFB0E7186B9A330041D7DE /* WorkoutTreeController.m in Sources */,
 				4CBD1EAD185D5AC700211541 /* Group.m in Sources */,
+				4C35E60B1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,13 +501,19 @@
 				4C7F56E11846E35000D4CCA7 /* CoreDataDocumentHandlerTest.m in Sources */,
 				4C2D1BAF1859414A00D3B435 /* ExerciseTest.m in Sources */,
 				4CBD1EAA185D5AC700211541 /* Activity.m in Sources */,
+				4CFFB0E0186B4B530041D7DE /* WorkoutTreeNode.m in Sources */,
 				4C7F56DC1846E2F800D4CCA7 /* TimeYa2.xcdatamodel in Sources */,
+				4CBB12BA186A9386005125CD /* WorkoutTreeNode+CRUD.m in Sources */,
 				4CDB6DA91849AB4000A4D189 /* CoreDataTest.m in Sources */,
+				4C35E60C1865321E0005C7CC /* WorkoutTreeRoot+CRUD.m in Sources */,
 				4CDB6DAF1849ADA800A4D189 /* WorkoutTest.m in Sources */,
 				4C7F56DE1846E2F800D4CCA7 /* CoreDataDocumentHandler.m in Sources */,
 				4C968CE21850145400AAB29C /* Activity+CRUD.m in Sources */,
 				4C70A1481857FAEE00DE2249 /* Exercise+CRUD.m in Sources */,
+				4CFFB0EA186BAB500041D7DE /* WorkoutTreeControllerTest.m in Sources */,
+				4CFFB0E8186B9A330041D7DE /* WorkoutTreeController.m in Sources */,
 				4C3688DC18496F7E00D9BBDB /* Workout+CRUD.m in Sources */,
+				4CFFB0DC186B4B530041D7DE /* WorkoutTreeRoot.m in Sources */,
 				4CBD1EB2185D5C8700211541 /* GroupTest.m in Sources */,
 				4C70A1581858100C00DE2249 /* Group+CRUD.m in Sources */,
 				4CDB6DAD1849AB8E00A4D189 /* FakeCoreDataDocumentDelegate.m in Sources */,

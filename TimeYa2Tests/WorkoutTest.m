@@ -115,29 +115,6 @@
     XCTAssertEqual(invalidGroups[0], group4, @"Group4 is an invalid group");
 }
 
-- (void) testWorkoutPreOrder{
-    
-    Group *group0 = (Group *) [Group activityWithName:@"Group 0" inWorkout:self.workout];
-    [Exercise activityWithName:@"Ex 1" inGroup:group0];
-    [Exercise activityWithName:@"Ex 2" inGroup:group0];
-    
-    Group *group1 = (Group *) [Group activityWithName:@"Group 1" inWorkout:self.workout];
-    Group *group2 = (Group *) [Group activityWithName:@"Group 2" inGroup:group1];
-    [Exercise activityWithName:@"Ex 3" inGroup:group2];
-    [Exercise activityWithName:@"Ex 4" inGroup:group2];
-    [Exercise activityWithName:@"Ex 5" inGroup:group2];
-    
-    [Exercise activityWithName:@"Ex 6" inWorkout:self.workout];
-    
-    NSLog(@"************************************************************");
-    
-    [Workout preorderWorkout:self.workout];
-    
-    NSLog(@"************************************************************");
-    
-    XCTAssertTrue(YES, @"YES");
-}
-
 
 
 @end
