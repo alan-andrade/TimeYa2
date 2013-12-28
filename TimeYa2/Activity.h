@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Group, Workout, WorkoutTreeNode;
+@class Group, Workout, WorkoutListActivity;
 
 @interface Activity : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) WorkoutTreeNode *activityNode;
+@property (nonatomic, retain) WorkoutListActivity *activityNode;
 @property (nonatomic, retain) Group *group;
 @property (nonatomic, retain) Workout *workout;
 

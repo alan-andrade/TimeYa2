@@ -71,16 +71,12 @@ static int ddLogLevel = APP_LOG_LEVEL;
 
 + (Activity *) updateActivity:(Activity *) activity withValues:(NSDictionary *) values{
     
-    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
-    
-    return nil;
+    return [[activity class] updateActivity:activity withValues:values];
 }
 
 + (NSArray *) validateActivity:(Activity *) activity{
     
-    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
-    
-    return nil;
+    return [[activity class] validateActivity:activity];
 }
 
 + (Activity *) activity:(Group *) parent nextActivity:(Activity *) child{

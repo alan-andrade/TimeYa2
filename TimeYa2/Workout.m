@@ -8,7 +8,7 @@
 
 #import "Workout.h"
 #import "Activity.h"
-#import "WorkoutTreeRoot.h"
+#import "WorkoutList.h"
 
 
 @implementation Workout

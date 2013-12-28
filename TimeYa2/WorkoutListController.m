@@ -1,50 +1,47 @@
 //
-//  WorkoutTreeController.m
+//  WorkoutListController.m
 //  TimeYa2
 //
 //  Created by PartyMan on 12/25/13.
 //  Copyright (c) 2013 PartyMan. All rights reserved.
 //
 
-#import "WorkoutTreeController.h"
-#import "WorkoutTreeRoot+CRUD.h"
-#import "WorkoutTreeNode+CRUD.h"
+#import "WorkoutListController.h"
+#import "WorkoutList+CRUD.h"
+#import "WorkoutListActivity+CRUD.h"
 #import "Activity+CRUD.h"
 #import "Group+CRUD.h"
 #import "TimeYaConstants.h"
-#import "DDLog.h"
 
-static int ddLogLevel = APP_LOG_LEVEL;
-
-@interface WorkoutTreeController ()
+@interface WorkoutListController ()
 
 @property (nonatomic) NSUInteger position;
 @property (readonly, nonatomic) NSInteger depth;
 @property (strong, nonatomic) NSMutableArray *parentStack;
-@property (strong, nonatomic) WorkoutTreeRoot *root;
+@property (strong, nonatomic) WorkoutList *list;
 
 @end
 
-@implementation WorkoutTreeController
+@implementation WorkoutListController
 
-- (WorkoutTreeController *) initWithWorkout:(Workout *)workout{
+- (WorkoutListController *) initWithWorkout:(Workout *)workout{
     
     self = [super init];
     
     if (self) {
         
         self.parentStack = [[NSMutableArray alloc] init];
-        self.root = [WorkoutTreeRoot workoutTreeRootWithWorkout:workout];
-        [self populateTree];
+        self.list = [WorkoutList workoutListWithWorkout:workout];
+        [self populateWorkoutList];
         
     }
     
     return self;
 }
 
-- (void) populateTree{
+- (void) populateWorkoutList{
     
-    for (Activity* activity in self.root.workout.activities) {
+    for (Activity* activity in self.list.workout.activities) {
         [self preOrder:activity];
     }
     
@@ -57,7 +54,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
         
     if([self isKindOfGroupEntity:activity]){
         
-        [self createActivityTreeNode:activity];
+        [self createWorkoutListItem:activity];
         
         Group *group = (Group *)activity;
         
@@ -71,7 +68,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
         
     }else if([self isKindOfExerciseEntity:activity]){
         
-        [self createActivityTreeNode:activity];
+        [self createWorkoutListItem:activity];
         
         return;
         
@@ -80,16 +77,16 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }
 }
 
-- (void) createActivityTreeNode:(Activity *) activity{
+- (void) createWorkoutListItem:(Activity *) activity{
     
-    WorkoutTreeNode *treeNode = [WorkoutTreeNode workoutTreeNodeWithActivity:activity];
+    WorkoutListActivity *listItem = [WorkoutListActivity workoutListActivityWithActivity:activity];
     
-    [self isKindOfGroupEntity:activity] ? (treeNode.allowChildren = @YES) : (treeNode.allowChildren = @NO);
+    [self isKindOfGroupEntity:activity] ? (listItem.allowChildren = @YES) : (listItem.allowChildren = @NO);
     
-    treeNode.depth = [NSNumber numberWithInteger:self.depth];
-    treeNode.position = [NSNumber numberWithInteger:self.position];
-    treeNode.activity = activity;
-    treeNode.root = self.root;
+    listItem.depth = [NSNumber numberWithInteger:self.depth];
+    listItem.position = [NSNumber numberWithInteger:self.position];
+    listItem.activity = activity;
+    listItem.list = self.list;
     
     self.position++;
     
@@ -110,51 +107,50 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return [[entity entity] isKindOfEntity:workoutEntity];
 }
 
-- (BOOL) deleteWorkoutTree{
-    
-    NSManagedObjectContext *context = self.root.managedObjectContext;
-    
-    [context deleteObject:self.root];
-    
-    NSError* error;
-    BOOL deleted = [context save:&error];
-    
-    if (!deleted) {
-        DDLogError(@"[%@ %@] [ERROR] Workout tree root could not be deleted. Workout tree ID: %@ Name: %@ Error: %@ User Info: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.root.objectID, self.root.workout.name, error, error.userInfo);
-    }
-    
-    return deleted;
-}
+//- (BOOL) deleteWorkoutTree{
+//    
+//    NSManagedObjectContext *context = self.root.managedObjectContext;
+//    
+//    [context deleteObject:self.root];
+//    
+//    NSError* error;
+//    BOOL deleted = [context save:&error];
+//    
+//    if (!deleted) {
+//        DDLogError(@"[%@ %@] [ERROR] Workout tree root could not be deleted. Workout tree ID: %@ Name: %@ Error: %@ User Info: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.root.objectID, self.root.workout.name, error, error.userInfo);
+//    }
+//    
+//    return deleted;
+//}
 
-- (WorkoutTreeNode *) activityAtPosition:(NSUInteger)position error:(NSError**)error{
+- (WorkoutListActivity *) activityAtPosition:(NSUInteger)position error:(NSError**)error{
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:WORKOUT_TREE_NODE_ENTITY_NAME];
-    request.predicate = [NSPredicate predicateWithFormat:@"root == %@ AND position == %U", self.root, position];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_TREE_NODE_POSITION ascending:YES]];
-    //request.sortDescriptors = nil;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:WORKOUT_LIST_ACTIVITY_ENTITY_NAME];
+    request.predicate = [NSPredicate predicateWithFormat:@"list == %@ AND position == %U", self.list, position];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LIST_ACTIVITY_POSITION ascending:YES]];
     
-    NSManagedObjectContext *context = self.root.workout.managedObjectContext;
+    NSManagedObjectContext *context = self.list.workout.managedObjectContext;
     
-    WorkoutTreeNode *node = [[context executeFetchRequest:request error:error] lastObject];
+    WorkoutListActivity *listItem = [[context executeFetchRequest:request error:error] lastObject];
     
-    return node;
+    return listItem;
 }
 
 - (BOOL) deleteActivityAtPosition:(NSUInteger) position error: (NSError**) error{
     
     NSInteger preActivityCount = [self activityCount];
-    WorkoutTreeNode *node = [self activityAtPosition:position error:error];
+    WorkoutListActivity *listItem = [self activityAtPosition:position error:error];
     
-    if(node){
-        Activity *nextNode = [self findNextActivity:node.activity];
-        BOOL deleted =  [Activity deleteActivity:node.activity error:error];
+    if(listItem){
+        Activity *nextActivity= [self findNextActivity:listItem.activity];
+        BOOL deleted =  [Activity deleteActivity:listItem.activity error:error];
         if(deleted){
             
             NSInteger postActivityCount = [self activityCount];
             NSUInteger activityCountDelta = preActivityCount - postActivityCount;
             
-            if(nextNode) {
-                [self recalibrateTreeNodePosition:nextNode withDelta:activityCountDelta];
+            if(nextActivity) {
+                [self recalibrateWorkoutListActivityPositions:nextActivity withDelta:activityCountDelta];
             }
             
             return YES;
@@ -197,7 +193,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }
 }
 
-- (void) recalibrateTreeNodePosition:(Activity *) activity withDelta:(NSUInteger) delta{
+- (void) recalibrateWorkoutListActivityPositions:(Activity *) activity withDelta:(NSUInteger) delta{
     
     
     if ([self isKindOfExerciseEntity:activity]) {
@@ -251,7 +247,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
 }
 
 - (NSInteger) activityCount{
-    return [self.root.nodes count];
+    return [self.list.items count];
 }
 
 - (void) resetInstanceVariables{

@@ -9,7 +9,7 @@
 #import "Activity.h"
 #import "Group.h"
 #import "Workout.h"
-#import "WorkoutTreeNode.h"
+#import "WorkoutListActivity.h"
 
 
 @implementation Activity

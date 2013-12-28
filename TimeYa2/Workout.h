@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Activity, WorkoutTreeRoot;
+@class Activity, WorkoutList;
 
 @interface Workout : NSManagedObject
 
@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSDate * lastRun;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSOrderedSet *activities;
-@property (nonatomic, retain) WorkoutTreeRoot *rootNode;
+@property (nonatomic, retain) WorkoutList *rootNode;
 @end
 
 @interface Workout (CoreDataGeneratedAccessors)

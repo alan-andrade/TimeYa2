@@ -103,16 +103,16 @@ typedef enum TimeUnitType{
 }TimeUnitType;
 
 
-//WorkoutTreeRoot Entity Constants
+//WorkoutList Entity Constants
 
-#define WORKOUT_TREE_ROOT_ENTITY_NAME @"WorkoutTreeRoot"
-#define WORKOUT_TREE_ROOT_WORKOUT @"workout"
+#define WORKOUT_LIST_ENTITY_NAME @"WorkoutList"
+#define WORKOUT_LIST_WORKOUT @"workout"
 
-//WorkoutTreeNode Entity Constants
-#define WORKOUT_TREE_NODE_ENTITY_NAME @"WorkoutTreeNode"
-#define WORKOUT_TREE_NODE_ACTIVITY @"activity"
-#define WORKOUT_TREE_NODE_ROOT @"root"
-#define WORKOUT_TREE_NODE_POSITION @"position"
+//WorkoutListActivity Entity Constants
+#define WORKOUT_LIST_ACTIVITY_ENTITY_NAME @"WorkoutListActivity"
+#define WORKOUT_LIST_ACTIVITY_ACTIVITY @"activity"
+#define WORKOUT_LIST_ACTIVITY_ROOT @"root"
+#define WORKOUT_LIST_ACTIVITY_POSITION @"position"
 
 //View Controllers
 #define WORKOUT_TVC_ID @"ShowActivities"

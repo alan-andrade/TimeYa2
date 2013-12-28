@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Activity" representedClassName="Activity" isAbstract="YES" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="activityNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutTreeNode" inverseName="activity" inverseEntity="WorkoutTreeNode" syncable="YES"/>
+        <relationship name="activityNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutListActivity" inverseName="activity" inverseEntity="WorkoutListActivity" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="activities" inverseEntity="Group" syncable="YES"/>
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="activities" inverseEntity="Workout" syncable="YES"/>
     </entity>
@@ -28,25 +28,25 @@
         <attribute name="lastRun" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Activity" inverseName="workout" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="rootNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutTreeRoot" inverseName="workout" inverseEntity="WorkoutTreeRoot" syncable="YES"/>
+        <relationship name="rootNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutList" inverseName="workout" inverseEntity="WorkoutList" syncable="YES"/>
     </entity>
-    <entity name="WorkoutTreeNode" representedClassName="WorkoutTreeNode" syncable="YES">
+    <entity name="WorkoutList" representedClassName="WorkoutList" syncable="YES">
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkoutListActivity" inverseName="list" inverseEntity="WorkoutListActivity" syncable="YES"/>
+        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="rootNode" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutListActivity" representedClassName="WorkoutListActivity" syncable="YES">
         <attribute name="allowChildren" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="activityNode" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="root" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutTreeRoot" inverseName="nodes" inverseEntity="WorkoutTreeRoot" syncable="YES"/>
-    </entity>
-    <entity name="WorkoutTreeRoot" representedClassName="WorkoutTreeRoot" isAbstract="YES" syncable="YES">
-        <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkoutTreeNode" inverseName="root" inverseEntity="WorkoutTreeNode" syncable="YES"/>
-        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="rootNode" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutList" inverseName="items" inverseEntity="WorkoutList" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="99" positionY="371" width="128" height="103"/>
-        <element name="Exercise" positionX="225" positionY="540" width="128" height="208"/>
-        <element name="Group" positionX="-81" positionY="530" width="128" height="73"/>
-        <element name="Workout" positionX="133" positionY="212" width="128" height="118"/>
-        <element name="WorkoutTreeNode" positionX="502" positionY="341" width="128" height="118"/>
-        <element name="WorkoutTreeRoot" positionX="493" positionY="207" width="128" height="73"/>
+        <element name="Activity" positionX="-110" positionY="0" width="128" height="105"/>
+        <element name="Exercise" positionX="61" positionY="132" width="128" height="210"/>
+        <element name="Group" positionX="-290" positionY="177" width="128" height="75"/>
+        <element name="Workout" positionX="-117" positionY="-219" width="128" height="120"/>
+        <element name="WorkoutList" positionX="313" positionY="-216" width="128" height="75"/>
+        <element name="WorkoutListActivity" positionX="331" positionY="-27" width="128" height="120"/>
     </elements>
 </model>

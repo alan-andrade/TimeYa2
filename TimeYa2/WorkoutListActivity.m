@@ -1,22 +1,22 @@
 //
-//  WorkoutTreeNode.m
+//  WorkoutListActivity.m
 //  TimeYa2
 //
-//  Created by PartyMan on 12/27/13.
+//  Created by PartyMan on 12/28/13.
 //  Copyright (c) 2013 PartyMan. All rights reserved.
 //
 
-#import "WorkoutTreeNode.h"
+#import "WorkoutListActivity.h"
 #import "Activity.h"
-#import "WorkoutTreeRoot.h"
+#import "WorkoutList.h"
 
 
-@implementation WorkoutTreeNode
+@implementation WorkoutListActivity
 
 @dynamic allowChildren;
 @dynamic depth;
 @dynamic position;
 @dynamic activity;
-@dynamic root;
+@dynamic list;
 
 @end
