@@ -327,4 +327,101 @@
     XCTAssertEqual(node17.activity, ex, @"Should point to the same object");
 }
 
+- (void) testDeleteOperationSingleActivityWorkout{
+    
+    //Setup
+    self.workout = [Workout workoutWithName:@"SingleActivityWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
+    [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
+    self.treeController = [[WorkoutTreeController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError *error;
+    BOOL deleted = [self.treeController deleteActivityAtPosition:0 error:&error];
+
+    //Validate
+    XCTAssertTrue(deleted, @"Validate node was deleted");
+    XCTAssertTrue([self.treeController activityCount] == 0, @"Workout should be empty");
+    
+}
+
+- (void) testDeleteOperationSimpleWorkout{
+    
+    //Setup
+    [self simpleWorkout];
+    self.treeController = [[WorkoutTreeController alloc] initWithWorkout:self.workout];
+    NSError *error;
+    WorkoutTreeNode *ex1 = [self.treeController activityAtPosition:1 error:&error];
+    
+    //Exercise
+    BOOL deleted = [self.treeController deleteActivityAtPosition:0 error:&error];
+    WorkoutTreeNode *node0 = [self.treeController activityAtPosition:0 error:&error];
+
+    //Validate
+    XCTAssertTrue(deleted, @"Validate node was deleted");
+    XCTAssertTrue([self.treeController activityCount] == 2, @"Workout now has 2 activities");
+    XCTAssertNil(error, @"No error retreiving node at position 0");
+    XCTAssertNotNil(node0, @"Tree should rebalance automatically and cover the position that was deleted");
+    XCTAssertEqual(node0, ex1, @"The first exercise should now be what use to be the second exercise");
+}
+
+- (void) testDeleteOperationSimpleWorkout2{
+    
+    //Setup
+    [self simpleWorkout];
+    self.treeController = [[WorkoutTreeController alloc] initWithWorkout:self.workout];
+    NSError *error;
+    
+    //Exercise
+    BOOL deleted = [self.treeController deleteActivityAtPosition:2 error:&error];
+    WorkoutTreeNode *node2 = [self.treeController activityAtPosition:2 error:&error];
+    
+    //Validate
+    XCTAssertTrue(deleted, @"Validate node was deleted");
+    XCTAssertTrue([self.treeController activityCount] == 2, @"Workout now has 2 activities");
+    XCTAssertNil(error, @"No error retreiving node at position 0");
+    XCTAssertNil(node2, @"Last activity was deleted. Node2 should be nil");
+
+}
+
+- (void) testDeleteOperationNormalWorkout{
+    
+    //Setup
+    [self normalWorkout];
+    self.treeController = [[WorkoutTreeController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError *error;
+    WorkoutTreeNode *node11 = [self.treeController activityAtPosition:14 error:&error];
+    BOOL deleted = [self.treeController deleteActivityAtPosition:10 error:&error];
+    WorkoutTreeNode *node = [self.treeController activityAtPosition:10 error:&error];
+
+    //Validation
+    XCTAssertTrue(deleted, @"Validate node was deleted");
+    XCTAssertTrue([self.treeController activityCount] == 15, @"Workout now has 18 activities");
+    XCTAssertEqualObjects(node.activity.name, node11.activity.name, @"Shold be the same node after deleting node 10");
+    
+}
+
+- (void) testDeleteOperationAdvancedWorkout{
+    
+    //Setup
+    [self advancedWorkout];
+    self.treeController = [[WorkoutTreeController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError *error;
+    WorkoutTreeNode *node19 = [self.treeController activityAtPosition:19 error:&error];
+    NSString *node19Name = [node19.activity.name copy];
+    BOOL deleted = [self.treeController deleteActivityAtPosition:15 error:&error];
+    WorkoutTreeNode *node = [self.treeController activityAtPosition:15 error:&error];
+    NSString *nodeName = [node.activity.name copy];
+    
+    //Validation
+    XCTAssertTrue(deleted, @"Validate node was deleted");
+    XCTAssertTrue([self.treeController activityCount] == 20, @"Workout now has 20 activities");
+    XCTAssertEqual(node19, node, @"Should point to the same object");
+    XCTAssertEqualObjects(nodeName, node19Name, @"Should be the same name");
+    
+}
+
 @end

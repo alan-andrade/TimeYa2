@@ -220,4 +220,17 @@
     
 }
 
+- (void) testExerciseParent{
+    
+    //Setup
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"Child" inWorkout:self.workout];
+    
+    //Exercise
+    NSManagedObject* parent = [Activity parent:exercise];
+    
+    //Validate
+    XCTAssertEqual(parent, self.workout, @"Should be the same");
+    
+}
+
 @end

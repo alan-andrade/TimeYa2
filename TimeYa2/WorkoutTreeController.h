@@ -21,11 +21,19 @@
 
 
 /** Returns a WorkoutTreeNode at a specific position in the workout
- @param position Postion
+ @param position Position in the workout
  @param error Pointer to a NSError
  @return WorkoutTreeNode at a specific postion in the workout
  */
 - (WorkoutTreeNode *) activityAtPosition:(NSUInteger) position error:(NSError**) error;
+
+/** Deletes a WorkoutTreeNode at a specific position in the workout
+ @param position Position in the workout
+ @param erro Pointer to a NSError
+ @return YES if the activity is deleted, otherwise NO
+ */
+
+- (BOOL) deleteActivityAtPosition:(NSUInteger) position error: (NSError**) error;
 
 /** Return the total number of activities in the workout
  @return Number of activities in the workout

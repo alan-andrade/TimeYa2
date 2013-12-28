@@ -110,6 +110,17 @@ static int ddLogLevel = APP_LOG_LEVEL;
     
 }
 
++ (Activity *) activity:(Workout *) parent nextActivity:(Activity *) child{
+   
+    NSUInteger position = [parent.activities indexOfObject:child];
+    
+    if (position == ([parent.activities count] -1)) {
+        return nil;
+    }else{
+        return [parent.activities objectAtIndex:position+1];
+    }
+}
+
 
 #pragma mark - Core Data one-to-many accessor method
 

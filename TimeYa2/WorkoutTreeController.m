@@ -9,6 +9,7 @@
 #import "WorkoutTreeController.h"
 #import "WorkoutTreeRoot+CRUD.h"
 #import "WorkoutTreeNode+CRUD.h"
+#import "Activity+CRUD.h"
 #import "Group+CRUD.h"
 #import "TimeYaConstants.h"
 #import "DDLog.h"
@@ -17,7 +18,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
 
 @interface WorkoutTreeController ()
 
-@property (nonatomic) NSInteger position;
+@property (nonatomic) NSUInteger position;
 @property (readonly, nonatomic) NSInteger depth;
 @property (strong, nonatomic) NSMutableArray *parentStack;
 @property (strong, nonatomic) WorkoutTreeRoot *root;
@@ -47,8 +48,7 @@ static int ddLogLevel = APP_LOG_LEVEL;
         [self preOrder:activity];
     }
     
-    [self.parentStack removeAllObjects];
-    self.position = 0;
+    [self resetInstanceVariables];
     
 }
 
@@ -96,15 +96,18 @@ static int ddLogLevel = APP_LOG_LEVEL;
 }
 
 - (BOOL) isKindOfGroupEntity:(Activity *) activity{
-    
     NSEntityDescription *groupEntity = [NSEntityDescription entityForName:GROUP_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
     return [[activity entity] isKindOfEntity:groupEntity];
 }
 
 - (BOOL) isKindOfExerciseEntity:(Activity *) activity{
-    
     NSEntityDescription *exerciseEntity = [NSEntityDescription entityForName:EXERCISE_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
     return [[activity entity] isKindOfEntity:exerciseEntity];
+}
+
+- (BOOL) iskindOfWorkoutEntity:(NSManagedObject *) entity{
+    NSEntityDescription *workoutEntity = [NSEntityDescription entityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:entity.managedObjectContext];
+    return [[entity entity] isKindOfEntity:workoutEntity];
 }
 
 - (BOOL) deleteWorkoutTree{
@@ -137,8 +140,123 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return node;
 }
 
+- (BOOL) deleteActivityAtPosition:(NSUInteger) position error: (NSError**) error{
+    
+    NSInteger preActivityCount = [self activityCount];
+    WorkoutTreeNode *node = [self activityAtPosition:position error:error];
+    
+    if(node){
+        Activity *nextNode = [self findNextActivity:node.activity];
+        BOOL deleted =  [Activity deleteActivity:node.activity error:error];
+        if(deleted){
+            
+            NSInteger postActivityCount = [self activityCount];
+            NSUInteger activityCountDelta = preActivityCount - postActivityCount;
+            
+            if(nextNode) {
+                [self recalibrateTreeNodePosition:nextNode withDelta:activityCountDelta];
+            }
+            
+            return YES;
+            
+        }else{
+            return NO;;
+        }
+        
+    }else{
+        return NO;
+    }
+    
+}
+
+- (Activity *) findNextActivity:(Activity *) child{
+    
+    Activity *nextActivity = nil;
+    
+    NSManagedObject *parent = [Activity parent:child];
+    
+    //Only workout and group entities could be parents
+    if ([self iskindOfWorkoutEntity:parent]) {
+        nextActivity = [Workout activity:(Workout *)parent nextActivity:child];
+        
+        if (nextActivity) {
+            return nextActivity;
+        }else{
+            //Last activity in the workout
+            return nil;
+        }
+    }else{
+        nextActivity = [Group activity:(Group *)parent nextActivity:child];
+        
+        if(nextActivity){
+            return nextActivity;
+        }else{
+            //Last activity in the group. Search again in the parent of the parent
+            return [self findNextActivity:(Group *)parent];
+        }
+    }
+}
+
+- (void) recalibrateTreeNodePosition:(Activity *) activity withDelta:(NSUInteger) delta{
+    
+    
+    if ([self isKindOfExerciseEntity:activity]) {
+        NSUInteger position = [activity.activityNode.position unsignedIntegerValue];
+        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:(position - delta)];
+        
+    }else if([self isKindOfGroupEntity:activity]){
+        self.position = [activity.activityNode.position unsignedIntegerValue] - delta;
+        
+        Group *group = (Group *)activity;
+        
+        for(Activity *activity in group.activities){
+            [self preOrderPositionRecalibration:activity];
+        }
+    }else{
+        [[NSException exceptionWithName:NSGenericException reason:@"Invalid execution path" userInfo:nil] raise];
+    }
+    
+    [self resetInstanceVariables];
+    
+    
+}
+
+- (void) preOrderPositionRecalibration:(Activity *) activity{
+    
+    if([self isKindOfGroupEntity:activity]){
+        
+        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:self.position];
+        self.position++;
+        
+        Group *group = (Group *)activity;
+        
+        [self.parentStack addObject:group];
+        
+        for (Activity *childActivity in group.activities) {
+            [self preOrder:childActivity];
+        }
+        
+        [self.parentStack removeLastObject];
+        
+    }else if([self isKindOfExerciseEntity:activity]){
+        
+        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:self.position];
+        self.position++;
+        
+        return;
+        
+    }else{
+        [[NSException exceptionWithName:NSGenericException reason:@"Invalid execution path" userInfo:nil] raise];
+    }
+}
+
 - (NSInteger) activityCount{
     return [self.root.nodes count];
+}
+
+- (void) resetInstanceVariables{
+    [self.parentStack removeAllObjects];
+    self.position = 0;
 }
 
 #pragma mark Property accessors 

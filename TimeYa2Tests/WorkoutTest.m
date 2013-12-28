@@ -115,6 +115,45 @@
     XCTAssertEqual(invalidGroups[0], group4, @"Group4 is an invalid group");
 }
 
+- (void) testNextActiivtySingleExercise{
+    
+    //Setup
+    Exercise *ex = (Exercise *)[Exercise activityWithName:@"Ex" inWorkout:self.workout];
+    
+    //Exercise
+    Activity *next = [Workout activity:self.workout nextActivity:ex];
+    
+    //Validate
+    XCTAssertNil(next, @"There is no next activity");
+}
 
+- (void) testNextActivitySingleGroup{
+    //Setup
+    Group *group = (Group *)[Group activityWithName:@"Gr" inWorkout:self.workout];
+    
+    //Exercise
+    Activity *next = [Workout activity:self.workout nextActivity:group];
+    
+    //Validate
+    XCTAssertNil(next, @"There is no next activity");
+}
+
+- (void) testNextActivityMultipleActivities{
+    
+    //Setup
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inWorkout:self.workout];
+    Exercise *ex2 = (Exercise *)[Exercise activityWithName:@"Ex2" inWorkout:self.workout];
+    Exercise *ex3 = (Exercise *)[Exercise activityWithName:@"Ex3" inWorkout:self.workout];
+    
+    //Exercise
+    Activity *next = [Workout activity:self.workout nextActivity:grp1];
+    XCTAssertEqual(next, ex2, @"Ex2 in next to grp1");
+    
+    next = [Workout activity:self.workout nextActivity:ex2];
+    XCTAssertEqual(next, ex3, @"Ex3 is next to ex2");
+    
+    next = [Workout activity:self.workout nextActivity:ex3];
+    XCTAssertNil(next, @"There is no exercise after ex3");
+}
 
 @end

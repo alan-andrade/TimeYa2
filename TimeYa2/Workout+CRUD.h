@@ -50,5 +50,12 @@
  */
 + (NSArray *) validateWorkout:(Workout *)workout;
 
+/** Returns an activity at the next index position to the parent activity.
+ @param parent Activity node that contains child activity
+ @param child Activity used used as reference to get the next activity in the parent activity
+ @return Return the next activity in the parent relative to the child. If the child activity is at the last index position of the parent, meaning there is no next activty, the method returns nil.
+ */
+
++ (Activity *) activity:(Workout *) parent nextActivity:(Activity *) child;
 
 @end

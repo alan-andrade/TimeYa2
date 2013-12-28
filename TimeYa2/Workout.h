@@ -2,14 +2,14 @@
 //  Workout.h
 //  TimeYa2
 //
-//  Created by PartyMan on 12/14/13.
+//  Created by PartyMan on 12/27/13.
 //  Copyright (c) 2013 PartyMan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Activity;
+@class Activity, WorkoutTreeRoot;
 
 @interface Workout : NSManagedObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSDate * lastRun;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSOrderedSet *activities;
+@property (nonatomic, retain) WorkoutTreeRoot *rootNode;
 @end
 
 @interface Workout (CoreDataGeneratedAccessors)

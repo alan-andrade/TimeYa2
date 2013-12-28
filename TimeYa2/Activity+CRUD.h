@@ -23,11 +23,19 @@
 + (NSArray *) activitiesInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error;
 
 
-/** Delete an anctivity from the specified context
+/** Delete an activity from the specified context
  @param activity Activity to delete
  @param error Pointer to a NSError object
  @return YES if the activity is deleted, otherwise NO
  */
 + (BOOL) deleteActivity:(Activity *) activity error:(NSError **)error;
+
+
+/** Returns the parent node of the specified activity
+ @param activity Activity which we want to know its parent
+ @return NSManagedObject that is parent of activity
+ */
++ (NSManagedObject *) parent:(Activity *)activity;
+
 
 @end

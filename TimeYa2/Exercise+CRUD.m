@@ -156,5 +156,12 @@
     
 }
 
++ (Activity *) activity:(Group *) parent nextActivity:(Activity *) child{
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"Invalid invocation. Exercise entities can't contatin other activities." userInfo:nil] raise];
+    
+    return nil;
+}
+
 
 @end

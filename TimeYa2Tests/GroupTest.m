@@ -185,5 +185,53 @@
     
 }
 
+- (void) testGroupParent{
+    
+    //Setup
+    Group *group = (Group *) [Group activityWithName:@"child" inWorkout:self.workout];
+    
+    //Exercise
+    NSManagedObject *parent = [Activity parent:group];
+    
+    //Validate
+    XCTAssertEqual(parent, self.workout, @"Should be the same");
+}
+
+-(void) testGroupInGroupParent{
+    
+    //Setup
+    Group *group1 = (Group *) [Group activityWithName:@"child" inWorkout:self.workout];
+    Group *group2 = (Group *) [Group activityWithName:@"grandChild" inGroup:group1];
+    Exercise *exercise = (Exercise *) [Exercise activityWithName:@"ex1" inGroup:group2];
+    
+    //Exercise
+    NSManagedObject *parent1 = [Activity parent:group2];
+    NSManagedObject *parent2 = [Activity parent:exercise];
+    
+    //Validate
+    XCTAssertEqual(parent1, group1, @"Should be the same");
+    XCTAssertEqual(parent2, group2, @"Should be the same");
+    
+}
+
+- (void) testNextActivityGroupWithMultipleActivities{
+        
+    //Setup
+    Group *group = (Group *) [Group activityWithName:@"Group" inWorkout:self.workout];
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inGroup:group];
+    Exercise *ex2 = (Exercise *)[Exercise activityWithName:@"Ex2" inGroup:group];
+    Exercise *ex3 = (Exercise *)[Exercise activityWithName:@"Ex3" inGroup:group];
+    
+    //Exercise
+    Activity *next = [Group activity:group nextActivity:grp1];
+    XCTAssertEqual(next, ex2, @"Ex2 in next to grp1");
+    
+    next = [Group activity:group nextActivity:ex2];
+    XCTAssertEqual(next, ex3, @"Ex3 is next to ex2");
+    
+    next = [Group activity:group nextActivity:ex3];
+    XCTAssertNil(next, @"There is no exercise after ex3");
+}
+
 
 @end
