@@ -35,6 +35,11 @@
 
 - (BOOL) deleteActivityAtPosition:(NSUInteger) position error: (NSError**) error;
 
+/** Insert a
+ */
+
+- (WorkoutListActivity *) insertActivityAtPosition:(NSInteger) position ofType:(Class) type withName:(NSString *) name error:(NSError **)error;
+
 
 /** Return the total number of activities in the workout list
  @return Number of activities in the workout list

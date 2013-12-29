@@ -92,6 +92,7 @@
 		4C19B2CB186FB0F400A5C61C /* WorkoutElementActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutElementActions.h; sourceTree = "<group>"; };
 		4C19B2CC186FB24E00A5C61C /* WorkoutParentElementActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutParentElementActions.h; sourceTree = "<group>"; };
 		4C19B2CD186FB32C00A5C61C /* WorkoutActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActions.h; sourceTree = "<group>"; };
+		4C19B2CE186FD5F300A5C61C /* WorkoutChildElementActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutChildElementActions.h; sourceTree = "<group>"; };
 		4C2D1BAE1859414A00D3B435 /* ExerciseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseTest.m; sourceTree = "<group>"; };
 		4C336CF0185D2019009F0293 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		4C35E6091865321E0005C7CC /* WorkoutList+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WorkoutList+CRUD.h"; sourceTree = "<group>"; };
@@ -291,8 +292,9 @@
 			isa = PBXGroup;
 			children = (
 				4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */,
-				4C19B2CB186FB0F400A5C61C /* WorkoutElementActions.h */,
 				4C19B2CC186FB24E00A5C61C /* WorkoutParentElementActions.h */,
+				4C19B2CE186FD5F300A5C61C /* WorkoutChildElementActions.h */,
+				4C19B2CB186FB0F400A5C61C /* WorkoutElementActions.h */,
 				4C565F821863E1ED0057B78C /* ActivityActions.h */,
 				4C19B2CD186FB32C00A5C61C /* WorkoutActions.h */,
 				4C19B2C7186F93AE00A5C61C /* WorkoutList.h */,

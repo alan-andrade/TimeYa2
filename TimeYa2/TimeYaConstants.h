@@ -104,7 +104,6 @@ typedef enum TimeUnitType{
 
 
 //WorkoutList Entity Constants
-
 #define WORKOUT_LIST_ENTITY_NAME @"WorkoutList"
 #define WORKOUT_LIST_WORKOUT @"workout"
 

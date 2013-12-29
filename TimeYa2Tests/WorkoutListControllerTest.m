@@ -378,8 +378,8 @@
     //Validate
     XCTAssertTrue(deleted, @"Validate item was deleted");
     XCTAssertTrue([self.listController activityCount] == 2, @"Workout list now has 2 items");
-    XCTAssertNil(error, @"No error retreiving item at position 0");
     XCTAssertNil(item2, @"Last activity was deleted. item2 should be nil");
+    XCTAssertEqual(error.code, NSNotFound, @"Error should indicate that the item wasn't found");
 
 }
 
@@ -421,6 +421,78 @@
     XCTAssertTrue([self.listController activityCount] == 20, @"Workout list now has 20 items");
     XCTAssertEqual(item19, item, @"Should point to the same object");
     XCTAssertEqualObjects(itemName, item19Name, @"Should be the same name");
+    
+}
+
+- (void) testInserOperationEmptyWorkout{
+    
+    //Setup
+    self.workout = [Workout workoutWithName:@"EmptyWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
+    self.listController = [[WorkoutListController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError *error;
+    WorkoutListActivity *item1 = [self.listController insertActivityAtPosition:-1 ofType:[Exercise class] withName:@"Ex1" error:&error];
+    
+    //Validate
+    XCTAssertNotNil(item1, @"Validate it was created");
+    XCTAssertTrue([item1.position integerValue] == 0, @"Item should be the first");
+    XCTAssertEqualObjects(item1.activity.name, @"Ex1", @"Validate the name is correct");
+    XCTAssertTrue([self.listController activityCount] == 1, @"Only one item in the list");
+    
+}
+
+- (void) testInsertOperationSimpleWorkout{
+    
+    //Setup
+    [self simpleWorkout];
+    self.listController = [[WorkoutListController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError* error;
+    WorkoutListActivity *item4 = [self.listController insertActivityAtPosition:-1 ofType:[Group class] withName:@"Group1" error:&error];
+    
+    //Validate
+    XCTAssertNotNil(item4, @"Validate item was created");
+    XCTAssertTrue([item4.position integerValue] == 3, @"Item should be the fourth");
+    XCTAssertTrue([self.listController activityCount] == 4, @"List should have 4 entries");
+}
+
+- (void) testInsertOperationNormalWorkout{
+    
+    //Setup
+    [self normalWorkout];
+    self.listController = [[WorkoutListController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError* error;
+    WorkoutListActivity *item9 = [self.listController insertActivityAtPosition:5 ofType:[Exercise class] withName:@"Submarines" error:&error];
+    
+    
+    //Validate
+    XCTAssertNotNil(item9, @"Validate item was created");
+    XCTAssertTrue([item9.position integerValue] == 9, @"Item should be the ninth");
+    XCTAssertTrue([self.listController activityCount] == 20, @"List should have 20 entries");
+    XCTAssertEqualObjects([self.listController activityAtPosition:10 error:&error].activity.name, @"Jog", @"Validate the tree was recalibrated correctly");
+    
+}
+
+- (void) testInsertOperationAdvancedWorkout{
+    
+    //Setup
+    [self advancedWorkout];
+    self.listController = [[WorkoutListController alloc] initWithWorkout:self.workout];
+    
+    //Exercise
+    NSError* error;
+    WorkoutListActivity *item15 = [self.listController insertActivityAtPosition:11 ofType:[Exercise class] withName:@"Leg press" error:&error];
+    
+    //Validate
+    XCTAssertNotNil(item15, @"Validate item was created");
+    XCTAssertTrue([item15.position integerValue] == 15, @"Item should be the fifteenth");
+    XCTAssertTrue([self.listController activityCount] == 25, @"List should have 20 entries");
+    XCTAssertEqualObjects([self.listController activityAtPosition:16 error:&error].activity.name, @"UpperBody", @"Validate the tree was recalibrated correctly");
+    XCTAssertEqualObjects([self.listController activityAtPosition:24 error:&error].activity.name, @"Arm Strech", @"Validate the tree was recalibrated correctly");
     
 }
 

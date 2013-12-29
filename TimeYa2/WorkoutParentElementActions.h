@@ -10,8 +10,8 @@
 
 @protocol WorkoutParentElementActions <NSObject>
 
-@property (nonatomic, retain) NSOrderedSet *activities;
-
+- (void) setActivities:(NSOrderedSet *)activities;
+- (NSOrderedSet *) activities;
 - (NSManagedObjectContext *)managedObjectContext;
 - (void) addActivitiesObject:(Activity *)value;
 

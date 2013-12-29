@@ -8,8 +8,9 @@
 
 #import "Exercise.h"
 #import "ActivityActions.h"
+#import "WorkoutChildElementActions.h"
 
-@interface Exercise (CRUD) <ActivityActions>
+@interface Exercise (CRUD) <ActivityActions, WorkoutChildElementActions>
 
 /** Search for all exercises in the specified context
  @paran context Context where to search

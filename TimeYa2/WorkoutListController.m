@@ -12,11 +12,13 @@
 #import "Activity+CRUD.h"
 #import "Group+CRUD.h"
 #import "TimeYaConstants.h"
+#import "WorkoutParentElementActions.h"
+#import "WorkoutChildElementActions.h"
 
 @interface WorkoutListController ()
 
 @property (nonatomic) NSUInteger position;
-@property (readonly, nonatomic) NSInteger depth;
+@property (readonly, nonatomic) NSUInteger depth;
 @property (strong, nonatomic) NSMutableArray *parentStack;
 @property (strong, nonatomic) WorkoutList *list;
 
@@ -125,6 +127,13 @@
 
 - (WorkoutListActivity *) activityAtPosition:(NSUInteger)position error:(NSError**)error{
     
+    if(position >= [self activityCount]){
+        
+        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSNotFound userInfo:nil];
+        
+        return nil;
+    }
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:WORKOUT_LIST_ACTIVITY_ENTITY_NAME];
     request.predicate = [NSPredicate predicateWithFormat:@"list == %@ AND position == %U", self.list, position];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LIST_ACTIVITY_POSITION ascending:YES]];
@@ -147,10 +156,10 @@
         if(deleted){
             
             NSInteger postActivityCount = [self activityCount];
-            NSUInteger activityCountDelta = preActivityCount - postActivityCount;
+            NSUInteger activityCountDelta = postActivityCount - preActivityCount;
             
             if(nextActivity) {
-                [self recalibrateWorkoutListActivityPositions:nextActivity withDelta:activityCountDelta];
+                [self recalibrateWorkoutListActivityPositions:nextActivity withDelta:activityCountDelta error:error];
             }
             
             return YES;
@@ -193,57 +202,100 @@
     }
 }
 
-- (void) recalibrateWorkoutListActivityPositions:(Activity *) activity withDelta:(NSUInteger) delta{
+- (BOOL) recalibrateWorkoutListActivityPositions:(Activity *) activity withDelta:(NSInteger) delta error:(NSError **) error{
     
     
-    if ([self isKindOfExerciseEntity:activity]) {
-        NSUInteger position = [activity.activityNode.position unsignedIntegerValue];
-        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:(position - delta)];
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:WORKOUT_LIST_ACTIVITY_ENTITY_NAME];
+    request.predicate = [NSPredicate predicateWithFormat:@"list == %@ AND position >= %@", activity.activityNode.list, activity.activityNode.position];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LIST_ACTIVITY_POSITION ascending:YES]];
+    
+    NSManagedObjectContext *context = activity.managedObjectContext;
+    
+    NSArray *listItems = [context executeFetchRequest:request error:error];
+    
+    if (listItems) {
         
-    }else if([self isKindOfGroupEntity:activity]){
-        self.position = [activity.activityNode.position unsignedIntegerValue] - delta;
+        self.position = [activity.activityNode.position integerValue] + delta;
         
-        Group *group = (Group *)activity;
-        
-        for(Activity *activity in group.activities){
-            [self preOrderPositionRecalibration:activity];
+        for (WorkoutListActivity *listItem in listItems) {
+            listItem.position = [NSNumber numberWithUnsignedInteger:self.position];
+            self.position++;
         }
+        
+        [self resetInstanceVariables];
+        
+        return YES;
+        
     }else{
-        [[NSException exceptionWithName:NSGenericException reason:@"Invalid execution path" userInfo:nil] raise];
+        return NO;;
     }
-    
-    [self resetInstanceVariables];
-    
-    
 }
 
-- (void) preOrderPositionRecalibration:(Activity *) activity{
+- (WorkoutListActivity *) insertActivityAtPosition:(NSInteger) position ofType:(Class) type withName:(NSString *) name error:(NSError **) error {
     
-    if([self isKindOfGroupEntity:activity]){
+    if (![type conformsToProtocol:@protocol(ActivityActions)]) {
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Type parameter must conform to Activity Actions Protocol" userInfo:nil] raise];
+    }
+    
+    Class <ActivityActions> activityClass = type;
+    Activity *activity;
+    id <WorkoutParentElementActions> parent;
+    BOOL listActivityAllowChildren;
+    NSUInteger listActivityPosition, listActivityDepth;
+    
+    
+    //The parent is the workout
+    if (position < 0) {
         
-        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:self.position];
-        self.position++;
+        parent = self.list.workout;
+        listActivityDepth = 0;
+        listActivityPosition = [self activityCount];
         
-        Group *group = (Group *)activity;
+    }else{ //The parent is the activity at the specified position
         
-        [self.parentStack addObject:group];
+        WorkoutListActivity *parentListItem =[self activityAtPosition:position error:error];
         
-        for (Activity *childActivity in group.activities) {
-            [self preOrder:childActivity];
+        if (parentListItem) {
+            
+            if (![parentListItem.activity conformsToProtocol:@protocol(WorkoutParentElementActions)]) {
+                [[NSException exceptionWithName:NSGenericException reason:@"Activity at indicated position can't hold child activities" userInfo:nil] raise];
+            }
+            
+            parent = (id <WorkoutParentElementActions>) parentListItem.activity;
+            listActivityDepth = [parentListItem.depth integerValue] + 1;
+            listActivityPosition = [[[[[parent activities] lastObject] activityNode] position] integerValue] + 1;
+            
+        }else{
+            return nil;
         }
         
-        [self.parentStack removeLastObject];
-        
-    }else if([self isKindOfExerciseEntity:activity]){
-        
-        activity.activityNode.position = [NSNumber numberWithUnsignedInteger:self.position];
-        self.position++;
-        
-        return;
-        
-    }else{
-        [[NSException exceptionWithName:NSGenericException reason:@"Invalid execution path" userInfo:nil] raise];
     }
+    
+    activity = [activityClass activityWithName:name inParent:parent];
+    
+    Activity *nextActivity= [self findNextActivity:activity];
+    
+    if(nextActivity){
+        
+        BOOL recalibrated = [self recalibrateWorkoutListActivityPositions:nextActivity withDelta:1 error:error];
+        
+        if(!recalibrated){
+            return nil;
+        }
+        
+    }
+    
+    
+    listActivityAllowChildren = [activity conformsToProtocol:@protocol(WorkoutChildElementActions)] ? NO : YES;
+    
+    WorkoutListActivity* listActivity = [WorkoutListActivity workoutListActivityWithActivity:activity];
+    listActivity.allowChildren = [NSNumber numberWithBool:listActivityAllowChildren];
+    listActivity.position = [NSNumber numberWithUnsignedInteger:listActivityPosition];
+    listActivity.depth = [NSNumber numberWithUnsignedInteger:listActivityDepth];
+    listActivity.list = self.list;
+    
+    return listActivity;
+    
 }
 
 - (NSInteger) activityCount{
@@ -257,7 +309,7 @@
 
 #pragma mark Property accessors 
 
-- (NSInteger) depth{
+- (NSUInteger) depth{
     return [self.parentStack count];
 }
 
