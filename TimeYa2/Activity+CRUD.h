@@ -7,13 +7,13 @@
 //
 
 #import "Activity.h"
-#import "ActivityOperations.h"
+#import "ActivityActions.h"
 
 /**Workout category that takes care of create, read, update and delete operations
  
  */
 
-@interface Activity (CRUD) <ActivityOperations>
+@interface Activity (CRUD) <ActivityActions>
 
 /** Search activities within the specified context
  @param context Context to search
@@ -22,14 +22,12 @@
 
 + (NSArray *) activitiesInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error;
 
-
 /** Delete an activity from the specified context
  @param activity Activity to delete
  @param error Pointer to a NSError object
  @return YES if the activity is deleted, otherwise NO
  */
 + (BOOL) deleteActivity:(Activity *) activity error:(NSError **)error;
-
 
 /** Returns the parent node of the specified activity
  @param activity Activity which we want to know its parent

@@ -35,25 +35,9 @@
 }
 
 
-#pragma mark ActivityOperations protocol methods
+#pragma mark ActivityActions protocol methods
 
-+ (Group *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
-    
-    Group *group = [Group groupWithName:name inContext:workout.managedObjectContext];
-    [workout addActivitiesObject:group];
-    return group;
-    
-}
-
-+ (Group *) activityWithName:(NSString *) name inGroup:(Group *)group{
-    
-    Group *groupNew = [Group groupWithName:name inContext:group.managedObjectContext];
-    [group addActivitiesObject:groupNew];
-    return groupNew;
-    
-}
-
-+ (Activity *) activity:(Group *) parent nextActivity:(Activity *) child{
++ (Activity *) activity:(id <WorkoutParentElementActions>) parent nextActivity:(Activity *) child{
     
     NSUInteger position = [parent.activities indexOfObject:child];
     
@@ -64,6 +48,15 @@
     }
     
 }
+
++ (Activity *) activityWithName:(NSString *)name inParent:(id <WorkoutParentElementActions>) parent{
+    
+    Group *group = [Group groupWithName:name inContext:parent.managedObjectContext];
+    [parent addActivitiesObject:group];
+    return group;
+    
+}
+
      
 #pragma mark - Core Data one-to-many accessor method
      

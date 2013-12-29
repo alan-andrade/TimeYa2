@@ -17,23 +17,16 @@ static int ddLogLevel = APP_LOG_LEVEL;
 
 @implementation Workout (CRUD)
 
-+ (Workout *) workoutWithName:(NSString *) name inMangedObjectContext:(NSManagedObjectContext *) context{
++ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error{
     
-    if([name length] == 0){
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Workout name can't be empty" userInfo:nil] raise];
-    }
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:WORKOUT_ENTITY_NAME];
+    request.predicate = nil;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LAST_RUN_KEY ascending:YES]];
     
-    Workout *workout = nil;
-    workout = [NSEntityDescription insertNewObjectForEntityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:context];
+    return [context executeFetchRequest:request error:error];
     
-    NSDate *now = [NSDate date];
-    workout.creationDate = now;
-    workout.lastRun = now;
-    workout.name = name;
-    
-    return workout;
-
 }
+
 
 + (BOOL) deleteWorkout:(Workout *) workout error:(NSError**) error{
     
@@ -49,44 +42,6 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }
     
     return deleted;
-}
-
-+ (Workout *) updateWorkout: (Workout *) workout
-                 properties:(NSDictionary *) properties{
-    
-    NSDictionary *workoutAttrDict = [[NSEntityDescription entityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:workout.managedObjectContext] attributesByName];
-    NSArray *workoutAttrKeys = [workoutAttrDict allKeys];
-    
-    NSArray *propertyKeys = [properties allKeys];
-    for(NSString* propertyKey in propertyKeys){
-        
-        if([workoutAttrKeys containsObject:propertyKey]){
-            [workout setValue:properties[propertyKey] forKey:propertyKey];
-        }
-    }
-    
-    return workout;
-}
-
-+ (NSArray *) workoutsInManagedObjectContext:(NSManagedObjectContext *) context error:(NSError **) error{
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:WORKOUT_ENTITY_NAME];
-    request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LAST_RUN_KEY ascending:YES]];
-    
-    return [context executeFetchRequest:request error:error];
-    
-}
-
-+ (NSArray *) validateWorkout:(Workout *)workout{
-    
-    NSMutableArray *invalidNodes = [[NSMutableArray alloc] init];
-    
-    for (Activity *activity in workout.activities) {
-        [invalidNodes addObjectsFromArray:[self searchEmptyGroups:activity]];
-    }
-    
-    return invalidNodes;
 }
 
 + (NSArray *) searchEmptyGroups:(Activity *) activity{
@@ -110,8 +65,10 @@ static int ddLogLevel = APP_LOG_LEVEL;
     
 }
 
-+ (Activity *) activity:(Workout *) parent nextActivity:(Activity *) child{
-   
+#pragma mark WorkoutActions protocol methods
+
++ (Activity *) activity:(id <WorkoutParentElementActions>) parent nextActivity:(Activity *) child{
+    
     NSUInteger position = [parent.activities indexOfObject:child];
     
     if (position == ([parent.activities count] -1)) {
@@ -119,6 +76,52 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }else{
         return [parent.activities objectAtIndex:position+1];
     }
+}
+
++ (Workout *) workoutWithName:(NSString *) name inMangedObjectContext:(NSManagedObjectContext *) context{
+    
+    if([name length] == 0){
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Workout name can't be empty" userInfo:nil] raise];
+    }
+    
+    Workout *workout = nil;
+    workout = [NSEntityDescription insertNewObjectForEntityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:context];
+    
+    NSDate *now = [NSDate date];
+    workout.creationDate = now;
+    workout.lastRun = now;
+    workout.name = name;
+    
+    return workout;
+    
+}
+
++ (Workout *) updateWorkout: (Workout *) workout
+                 properties:(NSDictionary *) properties{
+    
+    NSDictionary *workoutAttrDict = [[NSEntityDescription entityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:workout.managedObjectContext] attributesByName];
+    NSArray *workoutAttrKeys = [workoutAttrDict allKeys];
+    
+    NSArray *propertyKeys = [properties allKeys];
+    for(NSString* propertyKey in propertyKeys){
+        
+        if([workoutAttrKeys containsObject:propertyKey]){
+            [workout setValue:properties[propertyKey] forKey:propertyKey];
+        }
+    }
+    
+    return workout;
+}
+
++ (NSArray *) validateWorkout:(Workout *)workout{
+    
+    NSMutableArray *invalidNodes = [[NSMutableArray alloc] init];
+    
+    for (Activity *activity in workout.activities) {
+        [invalidNodes addObjectsFromArray:[self searchEmptyGroups:activity]];
+    }
+    
+    return invalidNodes;
 }
 
 

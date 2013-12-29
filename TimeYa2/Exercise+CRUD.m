@@ -23,21 +23,21 @@
     return [context executeFetchRequest:request error:error];
 }
 
-#pragma mark ActivityOperations protocol methods
+#pragma mark ActivityActions protocol methods
 
-+ (Exercise *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
++ (Activity *) activity:(id <WorkoutParentElementActions>) parent nextActivity:(Activity *) child{
     
-    Exercise *exercise = [Exercise exerciseWithName:name inContext:workout.managedObjectContext];
-    [workout addActivitiesObject:exercise];
-    return exercise;
+    [[NSException exceptionWithName:NSGenericException reason:@"Invalid invocation. Exercise entities can't contatin other activities." userInfo:nil] raise];
     
+    return nil;
 }
 
-+ (Exercise *) activityWithName:(NSString *) name inGroup:(Group *)group{
++ (Activity *) activityWithName:(NSString *)name inParent:(id<WorkoutParentElementActions>)parent{
     
-    Exercise *exercise = [Exercise exerciseWithName:name inContext:group.managedObjectContext];
-    [group addActivitiesObject:exercise];
+    Exercise *exercise = [Exercise exerciseWithName:name inContext:parent.managedObjectContext];
+    [parent addActivitiesObject:exercise];
     return exercise;
+    
 }
 
 + (Activity *) updateActivity:(Activity *) activity withValues:(NSDictionary *) values{
@@ -154,13 +154,6 @@
     
     return mutableValues;
     
-}
-
-+ (Activity *) activity:(Group *) parent nextActivity:(Activity *) child{
-    
-    [[NSException exceptionWithName:NSGenericException reason:@"Invalid invocation. Exercise entities can't contatin other activities." userInfo:nil] raise];
-    
-    return nil;
 }
 
 

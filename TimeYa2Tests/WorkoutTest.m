@@ -83,9 +83,9 @@
 - (void) testInvalidaWorkoutOneLevel{
     
     //Setup
-    [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
-    [Exercise activityWithName:@"Ex2" inWorkout:self.workout];
-    Group *group1 = (Group *)[Group activityWithName:@"Grp1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex1" inParent:self.workout];
+    [Exercise activityWithName:@"Ex2" inParent:self.workout];
+    Group *group1 = (Group *)[Group activityWithName:@"Grp1" inParent:self.workout];
     
     //Exercise
     NSArray *invalidGroups = [Workout validateWorkout:self.workout];
@@ -99,13 +99,13 @@
 - (void) testInvalidaWorkoutTwoLevels{
     
     //Setup
-    Group *group1 = (Group *)[Group activityWithName:@"G1L1" inWorkout:self.workout];
-    Group *group2 = (Group *)[Group activityWithName:@"G2L1" inWorkout:self.workout];
-    Group *group3 = (Group *)[Group activityWithName:@"G3L2" inGroup:group1];
-    [Exercise activityWithName:@"Ex1" inGroup:group3];
-    [Exercise activityWithName:@"Ex2" inGroup:group3];
+    Group *group1 = (Group *)[Group activityWithName:@"G1L1" inParent:self.workout];
+    Group *group2 = (Group *)[Group activityWithName:@"G2L1" inParent:self.workout];
+    Group *group3 = (Group *)[Group activityWithName:@"G3L2" inParent:group1];
+    [Exercise activityWithName:@"Ex1" inParent:group3];
+    [Exercise activityWithName:@"Ex2" inParent:group3];
     
-    Group *group4 = (Group *) [Group activityWithName:@"G4L2" inGroup:group2];
+    Group *group4 = (Group *) [Group activityWithName:@"G4L2" inParent:group2];
     
     //Exercise
     NSArray *invalidGroups = [Workout validateWorkout:self.workout];
@@ -118,7 +118,7 @@
 - (void) testNextActiivtySingleExercise{
     
     //Setup
-    Exercise *ex = (Exercise *)[Exercise activityWithName:@"Ex" inWorkout:self.workout];
+    Exercise *ex = (Exercise *)[Exercise activityWithName:@"Ex" inParent:self.workout];
     
     //Exercise
     Activity *next = [Workout activity:self.workout nextActivity:ex];
@@ -129,7 +129,7 @@
 
 - (void) testNextActivitySingleGroup{
     //Setup
-    Group *group = (Group *)[Group activityWithName:@"Gr" inWorkout:self.workout];
+    Group *group = (Group *)[Group activityWithName:@"Gr" inParent:self.workout];
     
     //Exercise
     Activity *next = [Workout activity:self.workout nextActivity:group];
@@ -141,9 +141,9 @@
 - (void) testNextActivityMultipleActivities{
     
     //Setup
-    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inWorkout:self.workout];
-    Exercise *ex2 = (Exercise *)[Exercise activityWithName:@"Ex2" inWorkout:self.workout];
-    Exercise *ex3 = (Exercise *)[Exercise activityWithName:@"Ex3" inWorkout:self.workout];
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inParent:self.workout];
+    Exercise *ex2 = (Exercise *)[Exercise activityWithName:@"Ex2" inParent:self.workout];
+    Exercise *ex3 = (Exercise *)[Exercise activityWithName:@"Ex3" inParent:self.workout];
     
     //Exercise
     Activity *next = [Workout activity:self.workout nextActivity:grp1];

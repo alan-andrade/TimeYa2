@@ -7,9 +7,10 @@
 //
 
 #import "Group.h"
-#import "ActivityOperations.h"
+#import "ActivityActions.h"
+#import "WorkoutParentElementActions.h"
 
-@interface Group (CRUD) <ActivityOperations>
+@interface Group (CRUD) <ActivityActions, WorkoutParentElementActions>
 
 /** Search for all groups in the specified context
  @paran context Context where to search

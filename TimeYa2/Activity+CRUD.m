@@ -53,16 +53,16 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return parent;
 }
 
-#pragma mark ActivityOperations protocol methods
+#pragma mark ActivityActions protocol methods
 
-+ (Activity *) activityWithName:(NSString *) name inWorkout:(Workout *) workout{
++ (Activity *) activity:(id <WorkoutParentElementActions>) parent nextActivity:(Activity *) child{
     
     [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
     
     return nil;
 }
 
-+ (Activity *) activityWithName:(NSString *) name inGroup:(Group *) group{
++ (Activity *) activityWithName:(NSString *)name inParent:(id<WorkoutParentElementActions>)parent{
     
     [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
     
@@ -79,12 +79,6 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return [[activity class] validateActivity:activity];
 }
 
-+ (Activity *) activity:(Group *) parent nextActivity:(Activity *) child{
-    
-    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
-    
-    return nil;
-}
 
 
 

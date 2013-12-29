@@ -41,9 +41,9 @@
 - (void) simpleWorkout{
     
     self.workout = [Workout workoutWithName:@"SimpleWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
-    [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
-    [Exercise activityWithName:@"Ex2" inWorkout:self.workout];
-    [Exercise activityWithName:@"Ex3" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex1" inParent:self.workout];
+    [Exercise activityWithName:@"Ex2" inParent:self.workout];
+    [Exercise activityWithName:@"Ex3" inParent:self.workout];
     
 }
 
@@ -51,33 +51,33 @@
     
     self.workout = [Workout workoutWithName:@"NormalWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
     
-    Group *warmUp = (Group *)[Group activityWithName:@"WarmUp" inWorkout:self.workout];
+    Group *warmUp = (Group *)[Group activityWithName:@"WarmUp" inParent:self.workout];
     
-    [Exercise activityWithName:@"Leg Stretch" inGroup:warmUp];
-    [Exercise activityWithName:@"Back Stretch" inGroup:warmUp];
-    [Exercise activityWithName:@"Arm Strech" inGroup:warmUp];
+    [Exercise activityWithName:@"Leg Stretch" inParent:warmUp];
+    [Exercise activityWithName:@"Back Stretch" inParent:warmUp];
+    [Exercise activityWithName:@"Arm Strech" inParent:warmUp];
     
-    [Exercise activityWithName:@"Jog" inWorkout:self.workout];
+    [Exercise activityWithName:@"Jog" inParent:self.workout];
     
-    Group *upperBody = (Group *)[Group activityWithName:@"UpperBody" inWorkout:self.workout];
-    [Exercise activityWithName:@"Push Ups" inGroup:upperBody];
-    [Exercise activityWithName:@"Pull Ups" inGroup:upperBody];
-    [Exercise activityWithName:@"Dips" inGroup:upperBody];
+    Group *upperBody = (Group *)[Group activityWithName:@"UpperBody" inParent:self.workout];
+    [Exercise activityWithName:@"Push Ups" inParent:upperBody];
+    [Exercise activityWithName:@"Pull Ups" inParent:upperBody];
+    [Exercise activityWithName:@"Dips" inParent:upperBody];
     
-    [Exercise activityWithName:@"Jog" inWorkout:self.workout];
+    [Exercise activityWithName:@"Jog" inParent:self.workout];
     
-    Group *lowerBody = (Group *)[Group activityWithName:@"LowerBody" inWorkout:self.workout];
-    [Exercise activityWithName:@"Lunges" inGroup:lowerBody];
-    [Exercise activityWithName:@"Squats" inGroup:lowerBody];
-    [Exercise activityWithName:@"Box Jumps" inGroup:lowerBody];
+    Group *lowerBody = (Group *)[Group activityWithName:@"LowerBody" inParent:self.workout];
+    [Exercise activityWithName:@"Lunges" inParent:lowerBody];
+    [Exercise activityWithName:@"Squats" inParent:lowerBody];
+    [Exercise activityWithName:@"Box Jumps" inParent:lowerBody];
     
-    [Exercise activityWithName:@"Jog" inWorkout:self.workout];
+    [Exercise activityWithName:@"Jog" inParent:self.workout];
     
-    Group *coolDown = (Group *)[Group activityWithName:@"CoolDown" inWorkout:self.workout];
+    Group *coolDown = (Group *)[Group activityWithName:@"CoolDown" inParent:self.workout];
     
-    [Exercise activityWithName:@"Leg Stretch" inGroup:coolDown];
-    [Exercise activityWithName:@"Back Stretch" inGroup:coolDown];
-    [Exercise activityWithName:@"Arm Strech" inGroup:coolDown];
+    [Exercise activityWithName:@"Leg Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Back Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Arm Strech" inParent:coolDown];
     
 }
 
@@ -85,39 +85,39 @@
     
     self.workout = [Workout workoutWithName:@"AdvancedWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
     
-    Group *warmUp = (Group *) [Group activityWithName:@"WarmUp" inWorkout:self.workout];
+    Group *warmUp = (Group *) [Group activityWithName:@"WarmUp" inParent:self.workout];
     
-    Group *lowerWarmUp = (Group *) [Group activityWithName:@"LowerWarmUp" inGroup:warmUp];
-    [Exercise activityWithName:@"Quads Stretch" inGroup:lowerWarmUp];
-    [Exercise activityWithName:@"Hams Stretch" inGroup:lowerWarmUp];
-    [Exercise activityWithName:@"Calves Stretch" inGroup:lowerWarmUp];
+    Group *lowerWarmUp = (Group *) [Group activityWithName:@"LowerWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Quads Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Hams Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Calves Stretch" inParent:lowerWarmUp];
     
-    Group *upperWarmUp = (Group *) [Group activityWithName:@"UpperWarmUp" inGroup:warmUp];
-    [Exercise activityWithName:@"Chest Stretch" inGroup:upperWarmUp];
-    [Exercise activityWithName:@"Shoulder Stretch" inGroup:upperWarmUp];
-    [Exercise activityWithName:@"Arms Stretch" inGroup:upperWarmUp];
+    Group *upperWarmUp = (Group *) [Group activityWithName:@"UpperWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Chest Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Shoulder Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Arms Stretch" inParent:upperWarmUp];
     
-    [Exercise activityWithName:@"Rest" inWorkout:self.workout];
+    [Exercise activityWithName:@"Rest" inParent:self.workout];
     
-    Group *main = (Group *) [Group activityWithName:@"Main" inWorkout:self.workout];
+    Group *main = (Group *) [Group activityWithName:@"Main" inParent:self.workout];
     
-    Group *lowerBody = (Group *) [Group activityWithName:@"LowerBody" inGroup:main];
-    [Exercise activityWithName:@"Deep Squat" inGroup:lowerBody];
-    [Exercise activityWithName:@"Lunges" inGroup:lowerBody];
-    [Exercise activityWithName:@"One Leg Squat" inGroup:lowerBody];
+    Group *lowerBody = (Group *) [Group activityWithName:@"LowerBody" inParent:main];
+    [Exercise activityWithName:@"Deep Squat" inParent:lowerBody];
+    [Exercise activityWithName:@"Lunges" inParent:lowerBody];
+    [Exercise activityWithName:@"One Leg Squat" inParent:lowerBody];
     
-    Group *upperBody = (Group *) [Group activityWithName:@"UpperBody" inGroup:main];
-    [Exercise activityWithName:@"Bench Press" inGroup:upperBody];
-    [Exercise activityWithName:@"Shoulder Press" inGroup:upperBody];
-    [Exercise activityWithName:@"Row" inGroup:upperBody];
+    Group *upperBody = (Group *) [Group activityWithName:@"UpperBody" inParent:main];
+    [Exercise activityWithName:@"Bench Press" inParent:upperBody];
+    [Exercise activityWithName:@"Shoulder Press" inParent:upperBody];
+    [Exercise activityWithName:@"Row" inParent:upperBody];
     
-    [Exercise activityWithName:@"Rest" inWorkout:self.workout];
+    [Exercise activityWithName:@"Rest" inParent:self.workout];
     
-    Group *coolDown = (Group *)[Group activityWithName:@"CoolDown" inWorkout:self.workout];
+    Group *coolDown = (Group *)[Group activityWithName:@"CoolDown" inParent:self.workout];
     
-    [Exercise activityWithName:@"Leg Stretch" inGroup:coolDown];
-    [Exercise activityWithName:@"Back Stretch" inGroup:coolDown];
-    [Exercise activityWithName:@"Arm Strech" inGroup:coolDown];
+    [Exercise activityWithName:@"Leg Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Back Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Arm Strech" inParent:coolDown];
     
     
     
@@ -331,7 +331,7 @@
     
     //Setup
     self.workout = [Workout workoutWithName:@"SingleActivityWorkout" inMangedObjectContext:self.delegate.managedObjectContext];
-    [Exercise activityWithName:@"Ex1" inWorkout:self.workout];
+    [Exercise activityWithName:@"Ex1" inParent:self.workout];
     self.listController = [[WorkoutListController alloc] initWithWorkout:self.workout];
     
     //Exercise

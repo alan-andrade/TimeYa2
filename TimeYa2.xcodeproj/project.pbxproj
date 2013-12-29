@@ -89,6 +89,9 @@
 		4C19B2C4186F93AD00A5C61C /* WorkoutListActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutListActivity.m; sourceTree = "<group>"; };
 		4C19B2C7186F93AE00A5C61C /* WorkoutList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutList.h; sourceTree = "<group>"; };
 		4C19B2C8186F93AE00A5C61C /* WorkoutList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutList.m; sourceTree = "<group>"; };
+		4C19B2CB186FB0F400A5C61C /* WorkoutElementActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutElementActions.h; sourceTree = "<group>"; };
+		4C19B2CC186FB24E00A5C61C /* WorkoutParentElementActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutParentElementActions.h; sourceTree = "<group>"; };
+		4C19B2CD186FB32C00A5C61C /* WorkoutActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActions.h; sourceTree = "<group>"; };
 		4C2D1BAE1859414A00D3B435 /* ExerciseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseTest.m; sourceTree = "<group>"; };
 		4C336CF0185D2019009F0293 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		4C35E6091865321E0005C7CC /* WorkoutList+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WorkoutList+CRUD.h"; sourceTree = "<group>"; };
@@ -101,7 +104,7 @@
 		4C3688E31849924900D9BBDB /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = usr/Lumberjack/DDFileLogger.m; sourceTree = SOURCE_ROOT; };
 		4C3688E41849924900D9BBDB /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = usr/Lumberjack/DDLog.h; sourceTree = SOURCE_ROOT; };
 		4C3688E51849924900D9BBDB /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = usr/Lumberjack/DDLog.m; sourceTree = SOURCE_ROOT; };
-		4C565F821863E1ED0057B78C /* ActivityOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityOperations.h; sourceTree = "<group>"; };
+		4C565F821863E1ED0057B78C /* ActivityActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityActions.h; sourceTree = "<group>"; };
 		4C61EF07184C1FC3002A7AEF /* CoreDataManagedDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManagedDocument.h; sourceTree = "<group>"; };
 		4C61EF08184C1FC3002A7AEF /* CoreDataManagedDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManagedDocument.m; sourceTree = "<group>"; };
 		4C61EF0D184C3C21002A7AEF /* AGWaitForAsyncTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGWaitForAsyncTestHelper.h; sourceTree = "<group>"; };
@@ -288,6 +291,10 @@
 			isa = PBXGroup;
 			children = (
 				4C7F56D71846E2F800D4CCA7 /* TimeYa2.xcdatamodel */,
+				4C19B2CB186FB0F400A5C61C /* WorkoutElementActions.h */,
+				4C19B2CC186FB24E00A5C61C /* WorkoutParentElementActions.h */,
+				4C565F821863E1ED0057B78C /* ActivityActions.h */,
+				4C19B2CD186FB32C00A5C61C /* WorkoutActions.h */,
 				4C19B2C7186F93AE00A5C61C /* WorkoutList.h */,
 				4C19B2C8186F93AE00A5C61C /* WorkoutList.m */,
 				4C19B2C3186F93AD00A5C61C /* WorkoutListActivity.h */,
@@ -310,7 +317,6 @@
 				4C70A1561858100C00DE2249 /* Group+CRUD.m */,
 				4C70A1451857FAEE00DE2249 /* Exercise+CRUD.h */,
 				4C70A1461857FAEE00DE2249 /* Exercise+CRUD.m */,
-				4C565F821863E1ED0057B78C /* ActivityOperations.h */,
 				4C968CDF1850145400AAB29C /* Activity+CRUD.h */,
 				4C968CE01850145400AAB29C /* Activity+CRUD.m */,
 				4C3688D918496F7E00D9BBDB /* Workout+CRUD.h */,
