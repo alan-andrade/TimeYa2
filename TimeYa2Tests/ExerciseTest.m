@@ -11,6 +11,7 @@
 #import "Workout+CRUD.h"
 #import "Exercise+CRUD.h"
 #import "Activity+CRUD.h"
+#import "Group+CRUD.h"
 #import "TimeYaConstants.h"
 
 @interface ExerciseTest : CoreDataTest
@@ -230,6 +231,59 @@
     
     //Validate
     XCTAssertEqual(parent, self.workout, @"Should be the same");
+    
+}
+
+- (void) testLeafWorkoutTreeBranchOneLevelBranch{
+    
+    //Setup
+    Exercise *exercise = (Exercise*) [Exercise activityWithName:@"L1" inParent:self.workout];
+    
+    //Exercise
+    NSOrderedSet *branch = [exercise leafWourkoutTreeBranch];
+    
+    //Validate
+    XCTAssertTrue([branch count] == 2, @"Should have 2 levels. One for the exercise and antoher for the workout");
+    XCTAssertEqual(branch[0], self.workout, @"L0 = Workout");
+    XCTAssertEqual(branch[1], exercise, @"L1 = Exercise");
+    
+}
+
+- (void) testLeafWorkoutTreeBranchTwoLevelBranch{
+    
+    //Setup
+    Group *grp1 = (Group *) [Group activityWithName:@"L1" inParent:self.workout];
+    Exercise *ex1 = (Exercise *) [Exercise activityWithName:@"L2" inParent:grp1];
+    
+    //Exercise
+    NSOrderedSet *branch = [ex1 leafWourkoutTreeBranch];
+    
+    //Validate
+    XCTAssertTrue([branch count] == 3, @"Should have 3 levels. One for the exercise, one for the group and antoher for the workout");
+    XCTAssertEqual(branch[0], self.workout, @"L0 = Workout");
+    XCTAssertEqual(branch[1], grp1, @"L1 = grp1");
+    XCTAssertEqual(branch[2], ex1, @"L2 = ex1");
+    
+    
+}
+
+- (void) testLeafWorkoutTreeBranchThreeLevelBranch{
+    
+    //Setup
+    Group *grp1 = (Group *) [Group activityWithName:@"L1" inParent:self.workout];
+    Group *grp2 = (Group *) [Group activityWithName:@"L2" inParent:grp1];
+    Exercise *ex1 = (Exercise *) [Exercise activityWithName:@"L2" inParent:grp2];
+    
+    //Exercise
+    NSOrderedSet *branch = [ex1 leafWourkoutTreeBranch];
+    
+    //Validate
+    XCTAssertTrue([branch count] == 4, @"Should have 4 levels. One for the exercise, two for the groups and antoher for the workout");
+    XCTAssertEqual(branch[0], self.workout, @"L0 = Workout");
+    XCTAssertEqual(branch[1], grp1, @"L1 = grp1");
+    XCTAssertEqual(branch[2], grp2, @"L2 = grp2");
+    XCTAssertEqual(branch[3], ex1, @"L3 = ex1");
+    
     
 }
 

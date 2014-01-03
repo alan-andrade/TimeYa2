@@ -156,4 +156,227 @@
     XCTAssertNil(next, @"There is no exercise after ex3");
 }
 
+- (void) testNextLeafEmptyWorkout{
+    
+    //Setup
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:nil];
+    
+    //Validate
+    XCTAssertNil(nextLeaf, @"Should be nil since the workout is empty");
+    
+}
+
+- (void) testNextLeafSingleActivityWorkoutInitialVisit{
+    
+    //Setup
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:self.workout];
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:nil];
+    
+    //Validate
+    XCTAssertNotNil(nextLeaf, @"Should return Ex1 node");
+    XCTAssertEqual(nextLeaf, ex1, @"Should point to the same exercise");
+}
+
+- (void) testNextLeafSingleAcitivtyWorkout{
+    
+    //Setup
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:self.workout];
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:ex1];
+    
+    //Validate
+    XCTAssertNil(nextLeaf, @"There are no more activities after Ex1");
+    
+}
+
+- (void) testNextLeafMultipleActivitiesWorkout{
+    
+    //Setup
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:self.workout];
+    Exercise *ex2 = (Exercise *)[Exercise activityWithName:@"Ex2" inParent:self.workout];
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:ex1];
+    
+    //Validate
+    XCTAssertEqual(nextLeaf, ex2, @"Ex2 is the next leaf after ex1");
+}
+
+- (void) testNextLeafSingleGroupInitialVisit{
+    
+    //Setup
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inParent:self.workout];
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:grp1];
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:nil];
+    
+    //Validate
+    XCTAssertNotNil(nextLeaf, @"Ex1 is the first leaf");
+    XCTAssertEqual(nextLeaf, ex1, @"Ex1 is the first leaf");
+}
+
+- (void) testNextLeafSingleGroup{
+    
+    //Setup
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inParent:self.workout];
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:grp1];
+    
+    //Exercise
+    Activity *nextLeaf = [grp1 nextLeafAfterActivity:ex1];
+    
+    //Validate
+    XCTAssertNil(nextLeaf, @"There should be no leafs after ex1");
+    
+}
+
+- (void) testNextLeafDoubleLevelGroupInitialVisit{
+    
+    //Setup
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inParent:self.workout];
+    Group *grp2 = (Group *)[Group activityWithName:@"Group2" inParent:grp1];
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:grp2];
+    
+    //Exercise
+    Activity *nextLeaf = [self.workout nextLeafAfterActivity:nil];
+    
+    //Validate
+    XCTAssertEqual(nextLeaf, ex1, @"Ex1 is the first leaf in the workout");
+    
+}
+
+- (void) testNextLeafDoubleLevelGroup{
+    
+    //Setup
+    Group *grp1 = (Group *)[Group activityWithName:@"Group1" inParent:self.workout];
+    Group *grp2 = (Group *)[Group activityWithName:@"Group2" inParent:grp1];
+    Exercise *ex1 = (Exercise *)[Exercise activityWithName:@"Ex1" inParent:grp2];
+    
+    //Exercise
+    Activity *nextLeaf = [grp2 nextLeafAfterActivity:ex1];
+    
+    //Validate
+    XCTAssertNotNil(nextLeaf, @"Group should cycle though its activites and return ex1 again");
+    XCTAssertEqual(nextLeaf, ex1, @"Should point to the same object");
+    
+}
+
+- (void) testInitWithWorkout{
+    
+    //Setup
+    self.workout = [Workout workoutWithName:@"Advanced" inMangedObjectContext:self.delegate.managedObjectContext];
+
+    Group *warmUp = (Group *) [Group activityWithName:@"WarmUp" inParent:self.workout];
+    
+    Group *lowerWarmUp = (Group *) [Group activityWithName:@"LowerWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Quads Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Hams Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Calves Stretch" inParent:lowerWarmUp];
+    
+    Group *upperWarmUp = (Group *) [Group activityWithName:@"UpperWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Chest Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Shoulder Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Arms Stretch" inParent:upperWarmUp];
+    
+    [Exercise activityWithName:@"Rest" inParent:self.workout];
+    
+    Group *main = (Group *) [Group activityWithName:@"Main" inParent:self.workout];
+    
+    Group *lowerBody = (Group *) [Group activityWithName:@"LowerBody" inParent:main];
+    [Exercise activityWithName:@"Deep Squat" inParent:lowerBody];
+    [Exercise activityWithName:@"Lunges" inParent:lowerBody];
+    [Exercise activityWithName:@"One Leg Squat" inParent:lowerBody];
+    
+    Group *upperBody = (Group *) [Group activityWithName:@"UpperBody" inParent:main];
+    [Exercise activityWithName:@"Bench Press" inParent:upperBody];
+    [Exercise activityWithName:@"Shoulder Press" inParent:upperBody];
+    [Exercise activityWithName:@"Row" inParent:upperBody];
+    
+    [Exercise activityWithName:@"Rest" inParent:self.workout];
+    
+    Group *coolDown = (Group *)[Group activityWithName:@"CoolDown" inParent:self.workout];
+    
+    [Exercise activityWithName:@"Leg Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Back Stretch" inParent:coolDown];
+    [Exercise activityWithName:@"Arm Strech" inParent:coolDown];
+
+    //Validate
+    NSError *error;
+    NSUInteger workoutNodes = [[Workout workoutsInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(workoutNodes == 1, @"There should be only one workout created");
+    NSUInteger groupNodes = [[Group groupsInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(groupNodes == 7, @"There should be 7 groups created");
+    NSUInteger exerciseNodes = [[Exercise exercisesInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(exerciseNodes == 17, @"There should be 17 groups created");
+    
+    //Exercise
+    
+    Workout *workoutCopy = [Workout initWithWorkout:self.workout];
+    
+    //Validate
+    XCTAssertNotNil(workoutCopy, @"Make sure the new workout is not nil");
+    workoutNodes = [[Workout workoutsInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(workoutNodes == 2, @"There should be only one workout created");
+    groupNodes = [[Group groupsInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(groupNodes == 14, @"There should be 14 groups created");
+    exerciseNodes = [[Exercise exercisesInManagedObjectContext:self.delegate.managedObjectContext error:&error] count];
+    XCTAssertTrue(exerciseNodes == 34, @"There should be 34 groups created");
+    
+}
+
+- (void) testInitWithWorkoutCorrectness{
+    
+    //Setup
+    self.workout = [Workout workoutWithName:@"Copy" inMangedObjectContext:self.delegate.managedObjectContext];
+    
+    Group *warmUp = (Group *) [Group activityWithName:@"WarmUp" inParent:self.workout];
+    
+    Group *lowerWarmUp = (Group *) [Group activityWithName:@"LowerWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Quads Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Hams Stretch" inParent:lowerWarmUp];
+    [Exercise activityWithName:@"Calves Stretch" inParent:lowerWarmUp];
+    
+    Group *upperWarmUp = (Group *) [Group activityWithName:@"UpperWarmUp" inParent:warmUp];
+    [Exercise activityWithName:@"Chest Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Shoulder Stretch" inParent:upperWarmUp];
+    [Exercise activityWithName:@"Arms Stretch" inParent:upperWarmUp];
+    
+    Exercise *rest = (Exercise *)[Exercise activityWithName:@"Rest" inParent:self.workout];
+    
+    //Exercise
+    Workout *workoutCopy = [Workout initWithWorkout:self.workout];
+    
+    //Validate
+    XCTAssertEqualObjects(workoutCopy.name, @"Copy", @"Name should match");
+    XCTAssertTrue([workoutCopy.activities count] == 2, @"It only has one group and an exercise as immediate children");
+    XCTAssertNotEqual(workoutCopy.activities[0], warmUp, @"These should be two different objects");
+    XCTAssertNotEqual(workoutCopy.activities[1], rest, @"These should be two different objects");
+    
+    Group *warmUpCopy = workoutCopy.activities[0];
+    
+    XCTAssertEqualObjects([warmUpCopy name], @"WarmUp", @"Name should match");
+    XCTAssertTrue([[warmUpCopy activities] count] == 2, @"It has LowerWarmUp and UpperWarmUp as children");
+    XCTAssertEqual([Activity parent:warmUpCopy], workoutCopy, @"WorkoutCopy should be the parent of warmUpCopy");
+    XCTAssertTrue([Activity isKindOfParentEntity:warmUpCopy], @"Object should be of Group class type");
+    
+    Group *lowerWarmUpCopy = warmUpCopy.activities[0];
+    
+    XCTAssertEqualObjects([lowerWarmUpCopy name], @"LowerWarmUp", @"Name should match");
+    XCTAssertTrue([[lowerWarmUpCopy activities] count] == 3, @"It has 3 stretches as children");
+    XCTAssertEqual([Activity parent:lowerWarmUpCopy], warmUpCopy, @"WarmUpCopy should be the parent of lowerWarmUpCopy");
+    
+    Exercise *stretchCopy = lowerWarmUpCopy.activities[0];
+    
+    XCTAssertEqualObjects(stretchCopy.name, @"Quads Stretch", @"Name should match");
+    XCTAssertEqual([Activity parent:stretchCopy], lowerWarmUpCopy, @"LowerWarmUpCopy should be the parent of stretchCopy");
+    XCTAssertTrue([Activity isKindOfLeafEntity:stretchCopy], @"Object should be of Exercise class type");
+    
+    
+}
+
 @end

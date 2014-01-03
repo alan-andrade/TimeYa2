@@ -18,6 +18,13 @@
  */
 + (Workout *) workoutWithName:(NSString *) name inMangedObjectContext:(NSManagedObjectContext *) context;
 
+/** Creates a new workout by copying another given workout including all its children activities
+ @param workout A workout from which to copy all values
+ @return A workout of the type of the receiver
+ */
+
++ (Workout *) initWithWorkout:(Workout *) workout;
+
 /** Update a workout properties
  @param wokout Workout to update
  @properties Workout properties to update

@@ -1,5 +1,5 @@
 //
-//  WorkoutChildActions.h
+//  WorkoutLeafElementActions.h
 //  TimeYa2
 //
 //  Created by PartyMan on 12/28/13.
@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol WorkoutChildElementActions <NSObject>
+@protocol WorkoutLeafElementActions <NSObject>
+
+/** Returns all the WorkoutElements in the workout tree branch of the WorkoutLeafElement receiver
+ @return Returns a collection of all the WorkoutElements in the workout tree branch of the WorkoutLeafElement, including itself.
+ */
+
+- (NSOrderedSet *) leafWourkoutTreeBranch;
 
 @end

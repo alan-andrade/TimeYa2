@@ -41,12 +41,23 @@
         <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="activityNode" inverseEntity="Activity" syncable="YES"/>
         <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutList" inverseName="items" inverseEntity="WorkoutList" syncable="YES"/>
     </entity>
+    <entity name="WorkoutListActivityRun" parentEntity="WorkoutListActivity" syncable="YES">
+        <attribute name="elapsedReps" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="elapsedTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutListRun" parentEntity="WorkoutList" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="finishTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Activity" positionX="-110" positionY="0" width="128" height="105"/>
+        <element name="Activity" positionX="-128" positionY="0" width="128" height="105"/>
         <element name="Exercise" positionX="61" positionY="132" width="128" height="210"/>
         <element name="Group" positionX="-290" positionY="177" width="128" height="75"/>
-        <element name="Workout" positionX="-117" positionY="-219" width="128" height="120"/>
-        <element name="WorkoutList" positionX="313" positionY="-216" width="128" height="75"/>
-        <element name="WorkoutListActivity" positionX="331" positionY="-27" width="128" height="120"/>
+        <element name="Workout" positionX="-135" positionY="-219" width="128" height="120"/>
+        <element name="WorkoutList" positionX="126" positionY="-216" width="128" height="75"/>
+        <element name="WorkoutListActivity" positionX="133" positionY="-36" width="128" height="118"/>
+        <element name="WorkoutListRun" positionX="306" positionY="-171" width="128" height="88"/>
+        <element name="WorkoutListActivityRun" positionX="322" positionY="-25" width="128" height="73"/>
     </elements>
 </model>

@@ -10,8 +10,9 @@
 #import "Workout+CRUD.h"
 #import "TimeYaConstants.h"
 #import "Group.h"
-#import "Activity.h"
+#import "Activity+CRUD.h"
 #import "Exercise+CRUD.h"
+#import "WorkoutParentElementActions.h"
 
 static int ddLogLevel = APP_LOG_LEVEL;
 
@@ -62,6 +63,12 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }
     
     return emptyGroups;
+    
+}
+
++ (BOOL) isKindOfWorkoutEntity:(id <WorkoutParentElementActions>) parent{
+    
+    return [parent conformsToProtocol:@protocol(WorkoutActions)];
     
 }
 
@@ -122,6 +129,73 @@ static int ddLogLevel = APP_LOG_LEVEL;
     }
     
     return invalidNodes;
+}
+
++ (Workout *) initWithWorkout:(Workout *)workout{
+    
+    Workout *newWorkout = [Workout workoutWithName:workout.name inMangedObjectContext:workout.managedObjectContext];
+    
+    NSDate *now = [NSDate date];
+    workout.creationDate = now;
+    workout.lastRun = now;
+    
+    //Copy its activities
+    for(Activity *activity in workout.activities){
+        [[activity class] initWithActivity:activity inParent:newWorkout];
+    }
+    
+    return newWorkout;
+    
+}
+
+# pragma mark WorkoutParentActions protocol methods
+
+- (Activity *) nextLeafAfterActivity:(Activity *)child{
+    
+    //Check that the parent passed as paramenter is the real parent of the child activity
+    id <WorkoutParentElementActions> parent = [Activity parent:child];
+    
+    
+    if(child && ![parent isEqual:self]){
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Parent passed is not the parent of the child activity" userInfo:nil] raise];
+    }
+    
+    if (!child) {
+        
+        Activity *firstActivity = [[self activities] firstObject];
+        if([Activity isKindOfLeafEntity:firstActivity]){
+            return firstActivity;
+        }else{
+            return [(id <WorkoutParentElementActions>)firstActivity nextLeafAfterActivity:nil];
+        }
+    
+    }else{
+        
+        NSUInteger childIndex = [[parent activities] indexOfObject:child];
+        
+        if (childIndex != NSNotFound) {
+            if(childIndex < ([[parent activities] count] -1)){
+                
+                Activity *nextLeaf = [parent activities][childIndex+1];
+                
+                if([Activity isKindOfLeafEntity:nextLeaf]){
+                    return nextLeaf;
+                }else{
+                    return [(id <WorkoutParentElementActions>)nextLeaf nextLeafAfterActivity:nil];
+                }
+                
+            }else{
+                return nil;
+            }
+        }else{
+            
+            [[NSException exceptionWithName:NSGenericException reason:@"Invalid execution path" userInfo:nil] raise];
+            
+            return nil;
+        }
+        
+    }
+
 }
 
 

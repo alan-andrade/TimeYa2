@@ -30,4 +30,6 @@
  */
 + (BOOL) deleteWorkout:(Workout *) workout error:(NSError**) error;
 
++ (BOOL) isKindOfWorkoutEntity:(id <WorkoutParentElementActions>) parent;
+
 @end

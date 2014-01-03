@@ -54,7 +54,7 @@
 
 - (void) preOrder:(Activity *) activity{
         
-    if([self isKindOfGroupEntity:activity]){
+    if([Activity isKindOfParentEntity:activity]){
         
         [self createWorkoutListItem:activity];
         
@@ -68,7 +68,7 @@
         
         [self.parentStack removeLastObject];
         
-    }else if([self isKindOfExerciseEntity:activity]){
+    }else if([Activity isKindOfLeafEntity:activity]){
         
         [self createWorkoutListItem:activity];
         
@@ -83,7 +83,7 @@
     
     WorkoutListActivity *listItem = [WorkoutListActivity workoutListActivityWithActivity:activity];
     
-    [self isKindOfGroupEntity:activity] ? (listItem.allowChildren = @YES) : (listItem.allowChildren = @NO);
+    [Activity isKindOfParentEntity:activity] ? (listItem.allowChildren = @YES) : (listItem.allowChildren = @NO);
     
     listItem.depth = [NSNumber numberWithInteger:self.depth];
     listItem.position = [NSNumber numberWithInteger:self.position];
@@ -92,21 +92,6 @@
     
     self.position++;
     
-}
-
-- (BOOL) isKindOfGroupEntity:(Activity *) activity{
-    NSEntityDescription *groupEntity = [NSEntityDescription entityForName:GROUP_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
-    return [[activity entity] isKindOfEntity:groupEntity];
-}
-
-- (BOOL) isKindOfExerciseEntity:(Activity *) activity{
-    NSEntityDescription *exerciseEntity = [NSEntityDescription entityForName:EXERCISE_ENTITY_NAME inManagedObjectContext:activity.managedObjectContext];
-    return [[activity entity] isKindOfEntity:exerciseEntity];
-}
-
-- (BOOL) iskindOfWorkoutEntity:(NSManagedObject *) entity{
-    NSEntityDescription *workoutEntity = [NSEntityDescription entityForName:WORKOUT_ENTITY_NAME inManagedObjectContext:entity.managedObjectContext];
-    return [[entity entity] isKindOfEntity:workoutEntity];
 }
 
 //- (BOOL) deleteWorkoutTree{
@@ -178,21 +163,21 @@
     
     Activity *nextActivity = nil;
     
-    NSManagedObject *parent = [Activity parent:child];
+    id <WorkoutParentElementActions> parent = [Activity parent:child];
+    nextActivity = [[parent class] activity:parent nextActivity:child];
     
     //Only workout and group entities could be parents
-    if ([self iskindOfWorkoutEntity:parent]) {
-        nextActivity = [Workout activity:(Workout *)parent nextActivity:child];
-        
+    if ([parent conformsToProtocol:@protocol(WorkoutActions)]) {
+
         if (nextActivity) {
             return nextActivity;
         }else{
             //Last activity in the workout
             return nil;
         }
+
     }else{
-        nextActivity = [Group activity:(Group *)parent nextActivity:child];
-        
+
         if(nextActivity){
             return nextActivity;
         }else{
@@ -286,7 +271,7 @@
     }
     
     
-    listActivityAllowChildren = [activity conformsToProtocol:@protocol(WorkoutChildElementActions)] ? NO : YES;
+    listActivityAllowChildren = [Activity isKindOfParentEntity:activity] ? YES : NO;
     
     WorkoutListActivity* listActivity = [WorkoutListActivity workoutListActivityWithActivity:activity];
     listActivity.allowChildren = [NSNumber numberWithBool:listActivityAllowChildren];

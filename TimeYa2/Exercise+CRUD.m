@@ -10,6 +10,7 @@
 #import "TimeYaConstants.h"
 #import "Workout+CRUD.h"
 #import "Group+CRUD.h"
+#import "Activity+CRUD.h"
 
 @implementation Exercise (CRUD)
 
@@ -104,6 +105,59 @@
     
     return errors;
 }
+
++ (Activity *) initWithActivity:(Activity *)activity inParent:(id <WorkoutParentElementActions>) parent{
+    
+    if([activity isKindOfClass:[Exercise class]]){
+        Exercise *newExercise = nil;
+        Exercise *exercise = (Exercise *)activity;
+        
+        newExercise = (Exercise *) [Exercise activityWithName:activity.name inParent:parent];
+        
+        
+        NSDictionary *attr= [[exercise entity] attributesByName];
+        NSArray *attrKeys = [attr allKeys];
+        
+        for (NSString *attrKey in attrKeys) {
+            [newExercise setValue:[exercise valueForKey:attrKey]  forKey:attrKey];
+        }
+        
+        return newExercise;
+        
+    }else{
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Activity should be of type Exercise" userInfo:nil] raise];
+        return nil;
+    }
+    
+}
+
+#pragma mark WorkoutChildElementActions methods
+
+- (NSOrderedSet *) leafWourkoutTreeBranch{
+    
+    NSMutableOrderedSet *branchElements = [[NSMutableOrderedSet alloc] init];
+    
+    [branchElements insertObject:self atIndex:0];
+    
+    id<WorkoutParentElementActions> parent = [Activity parent:self];
+    
+    [self populuateLeafWorkoutBranch:parent elements:branchElements];
+    
+    return branchElements;
+}
+
+- (void) populuateLeafWorkoutBranch:(id<WorkoutParentElementActions>) parent elements:(NSMutableOrderedSet*) elements{
+    
+    [elements insertObject:parent atIndex:0];
+    
+    if([Workout isKindOfWorkoutEntity:parent]){
+        return;
+    }else{
+        [self populuateLeafWorkoutBranch:[Activity parent:(Activity *)parent] elements:elements];
+    }
+    
+}
+
 
 
 #pragma mark Helper methods

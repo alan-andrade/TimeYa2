@@ -33,7 +33,11 @@
  @param activity Activity which we want to know its parent
  @return NSManagedObject that is parent of activity
  */
-+ (NSManagedObject *) parent:(Activity *)activity;
++ (id<WorkoutParentElementActions>) parent:(Activity *)activity;
+
++ (BOOL) isKindOfParentEntity:(Activity *)activity;
+
++ (BOOL) isKindOfLeafEntity:(Activity *)activity;
 
 
 @end

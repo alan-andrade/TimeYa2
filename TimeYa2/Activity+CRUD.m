@@ -40,17 +40,27 @@ static int ddLogLevel = APP_LOG_LEVEL;
     return deleted;
 }
 
-+ (NSManagedObject *) parent:(Activity *)activity{
++ (id<WorkoutParentElementActions>) parent:(Activity *)activity{
     
-    NSManagedObject* parent = nil;
+    id<WorkoutParentElementActions> parent = nil;
     
     if (activity.workout != nil) {
-        parent = (NSManagedObject*) activity.workout;
+        parent = (id<WorkoutParentElementActions>)  activity.workout;
     }else{
-        parent = (NSManagedObject*) activity.group;
+        parent = (id<WorkoutParentElementActions>) activity.group;
     }
     
     return parent;
+}
+
++ (BOOL) isKindOfParentEntity:(Activity *) activity{
+ 
+    return [activity conformsToProtocol:@protocol(WorkoutParentElementActions)];
+}
+
++ (BOOL) isKindOfLeafEntity:(Activity *) activity{
+
+    return [activity conformsToProtocol:@protocol(WorkoutLeafElementActions)];
 }
 
 #pragma mark ActivityActions protocol methods
@@ -63,6 +73,13 @@ static int ddLogLevel = APP_LOG_LEVEL;
 }
 
 + (Activity *) activityWithName:(NSString *)name inParent:(id<WorkoutParentElementActions>)parent{
+    
+    [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
+    
+    return nil;
+}
+
++ (Activity *) initWithActivity:(Activity *)activity inParent:(id <WorkoutParentElementActions>) parent{
     
     [[NSException exceptionWithName:NSGenericException reason:@"This is an abstract method that should not be called" userInfo:nil] raise];
     
