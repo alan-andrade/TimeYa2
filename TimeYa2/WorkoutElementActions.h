@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WorkoutParentElementActions.h"
 #import "WorkoutChildElementActions.h"
+#import "WorkoutExecutionElementActions.h"
 
 @protocol WorkoutElementActions <NSObject>
 
@@ -19,6 +20,14 @@
  */
 
 + (Activity *) activity:(id <WorkoutParentElementActions>) parent nextActivity:(Activity *) child;
+
+/** Returns the WorkoutElementList of the receiver if it exists
+ @return Returns the WorkoutElementList of the receiver if it exists
+ 
+ All workout element nodes should be able to return the WorkoutElementList node
+ */
+
+- (id<WorkoutExecutionElementActions>) listNode;
 
 
 

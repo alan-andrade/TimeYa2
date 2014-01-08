@@ -2,8 +2,8 @@
 //  Activity.h
 //  TimeYa2
 //
-//  Created by PartyMan on 12/27/13.
-//  Copyright (c) 2013 PartyMan. All rights reserved.
+//  Created by PartyMan on 1/4/14.
+//  Copyright (c) 2014 PartyMan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,7 +14,7 @@
 @interface Activity : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) WorkoutListActivity *activityNode;
+@property (nonatomic, retain) WorkoutListActivity *listNode;
 @property (nonatomic, retain) Group *group;
 @property (nonatomic, retain) Workout *workout;
 

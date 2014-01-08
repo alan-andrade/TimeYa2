@@ -119,8 +119,6 @@
     [Exercise activityWithName:@"Back Stretch" inParent:coolDown];
     [Exercise activityWithName:@"Arm Strech" inParent:coolDown];
     
-    
-    
 }
 
 - (void) testWorkoutListControllerWithEmptyWorkout{
@@ -471,7 +469,7 @@
     
     //Validate
     XCTAssertNotNil(item9, @"Validate item was created");
-    XCTAssertTrue([item9.position integerValue] == 9, @"Item should be the ninth");
+    XCTAssertTrue([item9.position integerValue] == 9, @"Item should be the tenth");
     XCTAssertTrue([self.listController activityCount] == 20, @"List should have 20 entries");
     XCTAssertEqualObjects([self.listController activityAtPosition:10 error:&error].activity.name, @"Jog", @"Validate the tree was recalibrated correctly");
     
@@ -489,7 +487,7 @@
     
     //Validate
     XCTAssertNotNil(item15, @"Validate item was created");
-    XCTAssertTrue([item15.position integerValue] == 15, @"Item should be the fifteenth");
+    XCTAssertTrue([item15.position integerValue] == 15, @"Item should be the sixteenth");
     XCTAssertTrue([self.listController activityCount] == 25, @"List should have 20 entries");
     XCTAssertEqualObjects([self.listController activityAtPosition:16 error:&error].activity.name, @"UpperBody", @"Validate the tree was recalibrated correctly");
     XCTAssertEqualObjects([self.listController activityAtPosition:24 error:&error].activity.name, @"Arm Strech", @"Validate the tree was recalibrated correctly");

@@ -21,6 +21,7 @@
 @property (readonly, nonatomic) NSUInteger depth;
 @property (strong, nonatomic) NSMutableArray *parentStack;
 @property (strong, nonatomic) WorkoutList *list;
+@property (assign, nonatomic) Class listItemsClass;
 
 @end
 
@@ -32,13 +33,30 @@
     
     if (self) {
         
-        self.parentStack = [[NSMutableArray alloc] init];
-        self.list = [WorkoutList workoutListWithWorkout:workout];
+        self.workout = workout;
+        _parentStack = [[NSMutableArray alloc] init];
         [self populateWorkoutList];
         
     }
     
     return self;
+}
+
+- (void) setWorkout:(Workout *)workout{
+    if (!workout) {
+        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Workout must not be nil" userInfo:nil] raise];
+    }
+    
+    _workout = workout;
+}
+
+- (WorkoutList *) list{
+    
+    if(!_list){
+        _list = [WorkoutList workoutListWithWorkout:self.workout];
+    }
+    
+    return _list;
 }
 
 - (void) populateWorkoutList{
@@ -81,34 +99,26 @@
 
 - (void) createWorkoutListItem:(Activity *) activity{
     
-    WorkoutListActivity *listItem = [WorkoutListActivity workoutListActivityWithActivity:activity];
+    WorkoutListActivity *listItem = [self workoutListItem:activity];
     
-    [Activity isKindOfParentEntity:activity] ? (listItem.allowChildren = @YES) : (listItem.allowChildren = @NO);
+    [self populateListItem:listItem];
     
+}
+
+- (WorkoutListActivity *) workoutListItem:(Activity *) activity{
+    return [WorkoutListActivity workoutListActivityWithActivity:activity];
+}
+
+- (void) populateListItem:(WorkoutListActivity *) listItem{
+
+    [Activity isKindOfParentEntity:listItem.activity] ? (listItem.allowChildren = @YES) : (listItem.allowChildren = @NO);
     listItem.depth = [NSNumber numberWithInteger:self.depth];
     listItem.position = [NSNumber numberWithInteger:self.position];
-    listItem.activity = activity;
     listItem.list = self.list;
     
     self.position++;
     
 }
-
-//- (BOOL) deleteWorkoutTree{
-//    
-//    NSManagedObjectContext *context = self.root.managedObjectContext;
-//    
-//    [context deleteObject:self.root];
-//    
-//    NSError* error;
-//    BOOL deleted = [context save:&error];
-//    
-//    if (!deleted) {
-//        DDLogError(@"[%@ %@] [ERROR] Workout tree root could not be deleted. Workout tree ID: %@ Name: %@ Error: %@ User Info: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.root.objectID, self.root.workout.name, error, error.userInfo);
-//    }
-//    
-//    return deleted;
-//}
 
 - (WorkoutListActivity *) activityAtPosition:(NSUInteger)position error:(NSError**)error{
     
@@ -159,6 +169,9 @@
     
 }
 
+/** Finds the next activity relative to child in the workout tree following a pre-order depth-first search 
+ */
+
 - (Activity *) findNextActivity:(Activity *) child{
     
     Activity *nextActivity = nil;
@@ -191,7 +204,7 @@
     
     
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:WORKOUT_LIST_ACTIVITY_ENTITY_NAME];
-    request.predicate = [NSPredicate predicateWithFormat:@"list == %@ AND position >= %@", activity.activityNode.list, activity.activityNode.position];
+    request.predicate = [NSPredicate predicateWithFormat:@"list == %@ AND position >= %@", activity.listNode.list, activity.listNode.position];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WORKOUT_LIST_ACTIVITY_POSITION ascending:YES]];
     
     NSManagedObjectContext *context = activity.managedObjectContext;
@@ -200,7 +213,7 @@
     
     if (listItems) {
         
-        self.position = [activity.activityNode.position integerValue] + delta;
+        self.position = [activity.listNode.position integerValue] + delta;
         
         for (WorkoutListActivity *listItem in listItems) {
             listItem.position = [NSNumber numberWithUnsignedInteger:self.position];
@@ -248,7 +261,7 @@
             
             parent = (id <WorkoutParentElementActions>) parentListItem.activity;
             listActivityDepth = [parentListItem.depth integerValue] + 1;
-            listActivityPosition = [[[[[parent activities] lastObject] activityNode] position] integerValue] + 1;
+            listActivityPosition = [[(WorkoutListActivity *)[[[parent activities] lastObject] listNode] position] integerValue] + 1;
             
         }else{
             return nil;

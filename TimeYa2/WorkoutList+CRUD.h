@@ -10,8 +10,8 @@
 
 @interface WorkoutList (CRUD)
 
-/**Create a WorkoutList node entity with a workout in its own context
- @param workout Workout that will be used to create the tree root
+/**Create a WorkoutList entity with a given workout
+ @param workout Workout that will be used to create the WorkoutList
  @return WorkoutList entity created
  */
 

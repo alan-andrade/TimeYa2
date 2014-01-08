@@ -113,13 +113,21 @@ typedef enum TimeUnitType{
 #define WORKOUT_LIST_ACTIVITY_ROOT @"root"
 #define WORKOUT_LIST_ACTIVITY_POSITION @"position"
 
+//WorkoutExecution Entity Constants
+#define WORKOUT_EXECUTION_ENTITY_NAME @"WorkoutExecution"
+#define WORKOUT_EXECUTION_ACTIVE @"active"
+
+//ActivityExecution Entity Constants
+#define ACTIVITY_EXECUTION_ENTITY_NAME @"ActivityExecution"
+#define ACTIVITY_EXECUTION_ACTIVE @"active"
+
 //View Controllers
 #define WORKOUT_TVC_ID @"ShowActivities"
 #define EDIT_ACTIVITY_TVC_ID @"EditActivity"
 #define WORKOUT_EXECUTOR_ID @"WorkoutExecutor"
 
 //WorkoutPacer
-#define PACER_TIME_INTERVAL 1.0f
+#define WORKOUT_PACER_INTERVAL 1.0f
 #define WORKOUT_PACER_NOTIFICATION @"WorkoutPacerBeatNotification"
 
 

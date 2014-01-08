@@ -2,9 +2,15 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Activity" representedClassName="Activity" isAbstract="YES" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="activityNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutListActivity" inverseName="activity" inverseEntity="WorkoutListActivity" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="activities" inverseEntity="Group" syncable="YES"/>
+        <relationship name="listNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutListActivity" inverseName="activity" inverseEntity="WorkoutListActivity" syncable="YES"/>
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="activities" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="ActivityExecution" representedClassName="ActivityExecution" parentEntity="WorkoutListActivity" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="elapsedReps" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="elapsedTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="running" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
     </entity>
     <entity name="Exercise" representedClassName="Exercise" parentEntity="Activity" syncable="YES">
         <attribute name="distance" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -28,36 +34,35 @@
         <attribute name="lastRun" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Activity" inverseName="workout" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="rootNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutList" inverseName="workout" inverseEntity="WorkoutList" syncable="YES"/>
+        <relationship name="listNode" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WorkoutList" inverseName="workout" inverseEntity="WorkoutList" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutExecution" representedClassName="WorkoutExecution" parentEntity="WorkoutList" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="activeTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="finishTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="running" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <entity name="WorkoutList" representedClassName="WorkoutList" syncable="YES">
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkoutListActivity" inverseName="list" inverseEntity="WorkoutListActivity" syncable="YES"/>
-        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="rootNode" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="workout" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="listNode" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="WorkoutListActivity" representedClassName="WorkoutListActivity" syncable="YES">
         <attribute name="allowChildren" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="activityNode" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="listNode" inverseEntity="Activity" syncable="YES"/>
         <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutList" inverseName="items" inverseEntity="WorkoutList" syncable="YES"/>
     </entity>
-    <entity name="WorkoutListActivityRun" parentEntity="WorkoutListActivity" syncable="YES">
-        <attribute name="elapsedReps" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="elapsedTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-    </entity>
-    <entity name="WorkoutListRun" parentEntity="WorkoutList" syncable="YES">
-        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="finishTime" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="Activity" positionX="-128" positionY="0" width="128" height="105"/>
-        <element name="Exercise" positionX="61" positionY="132" width="128" height="210"/>
-        <element name="Group" positionX="-290" positionY="177" width="128" height="75"/>
-        <element name="Workout" positionX="-135" positionY="-219" width="128" height="120"/>
-        <element name="WorkoutList" positionX="126" positionY="-216" width="128" height="75"/>
-        <element name="WorkoutListActivity" positionX="133" positionY="-36" width="128" height="118"/>
-        <element name="WorkoutListRun" positionX="306" positionY="-171" width="128" height="88"/>
-        <element name="WorkoutListActivityRun" positionX="322" positionY="-25" width="128" height="73"/>
+        <element name="Activity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ActivityExecution" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Exercise" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Group" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Workout" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WorkoutExecution" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WorkoutList" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WorkoutListActivity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

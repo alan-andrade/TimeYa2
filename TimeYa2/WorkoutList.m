@@ -2,8 +2,8 @@
 //  WorkoutList.m
 //  TimeYa2
 //
-//  Created by PartyMan on 12/28/13.
-//  Copyright (c) 2013 PartyMan. All rights reserved.
+//  Created by PartyMan on 1/4/14.
+//  Copyright (c) 2014 PartyMan. All rights reserved.
 //
 
 #import "WorkoutList.h"

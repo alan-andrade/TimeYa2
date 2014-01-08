@@ -18,8 +18,8 @@ static int ddLogLevel = APP_LOG_LEVEL;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:ACTIVITY_ENTITY_NAME];
     request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:ACTIVITY_WORKOUT ascending:YES],
-                                [NSSortDescriptor sortDescriptorWithKey:ACTIVITY_NAME_KEY ascending:YES]];
+    request.sortDescriptors = nil;
+    [request setIncludesSubentities:YES];
     
     return [context executeFetchRequest:request error:error];
 }

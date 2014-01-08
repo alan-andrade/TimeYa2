@@ -133,9 +133,9 @@
 
 #pragma mark WorkoutChildElementActions methods
 
-- (NSOrderedSet *) leafWourkoutTreeBranch{
+- (NSArray *) leafWourkoutTreeBranch{
     
-    NSMutableOrderedSet *branchElements = [[NSMutableOrderedSet alloc] init];
+    NSMutableArray *branchElements = [[NSMutableArray alloc] init];
     
     [branchElements insertObject:self atIndex:0];
     
@@ -146,7 +146,7 @@
     return branchElements;
 }
 
-- (void) populuateLeafWorkoutBranch:(id<WorkoutParentElementActions>) parent elements:(NSMutableOrderedSet*) elements{
+- (void) populuateLeafWorkoutBranch:(id<WorkoutParentElementActions>) parent elements:(NSMutableArray*) elements{
     
     [elements insertObject:parent atIndex:0];
     

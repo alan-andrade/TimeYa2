@@ -14,6 +14,6 @@
  @return Returns a collection of all the WorkoutElements in the workout tree branch of the WorkoutLeafElement, including itself.
  */
 
-- (NSOrderedSet *) leafWourkoutTreeBranch;
+- (NSArray *) leafWourkoutTreeBranch;
 
 @end

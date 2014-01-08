@@ -12,13 +12,23 @@
 
 @interface WorkoutListController : NSObject
 
+@property (strong, nonatomic) Workout* workout;
+
 /** Designated initializer to instantiate a WorkoutListController
- @param workout Workout to controll by the WorkoutListController
+ @param workout Workout used to instantiate the WorkoutListController
  @return A WorkoutListController instance
  */
 
 - (WorkoutListController *) initWithWorkout:(Workout *) workout;
 
+/** Returns the WorkoutListActivity for a given activity, which will be added as child of the WorkoutList
+ @param activity Acitivity to instantiate a WorkoutListActivity
+ @return WorkoutListActivity
+ 
+ Subclasses need to override this method to use a subclass of WorkoutListActivity as items in the WorkoutList
+ 
+ */
+- (WorkoutListActivity *) workoutListItem:(Activity *) activity;
 
 /** Return a WorkoutListActivity at a specific position in the workout list
  @param position Position in the workout list
