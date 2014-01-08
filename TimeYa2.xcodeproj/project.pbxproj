@@ -774,7 +774,7 @@
 				INFOPLIST_FILE = "TimeYa2Tests/TimeYa2Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/partyman21/Development/TimeYa2/TimeYa2/usr/lib,
+					"$(SRCROOT)/usr/lib",
 				);
 				OTHER_LDFLAGS = (
 					"-force_load",
@@ -806,7 +806,7 @@
 				INFOPLIST_FILE = "TimeYa2Tests/TimeYa2Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/partyman21/Development/TimeYa2/TimeYa2/usr/lib,
+					"$(SRCROOT)/usr/lib",
 				);
 				OTHER_LDFLAGS = (
 					"-force_load",
